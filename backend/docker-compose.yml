@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./laravel-app:/var/www/html
+      - ./apache-config:/etc/apache2/sites-available # Mount custom Apache configuration
     ports:
       - 9005:80
   
