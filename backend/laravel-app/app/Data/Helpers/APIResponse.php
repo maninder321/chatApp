@@ -10,23 +10,25 @@
 namespace App\Helpers;
 
 class APIResponse {
-    public static function error($message, $data = null, $code = 400) {
+    public static function error($message, $data = null, $statusCode = null, $httpCode = 400) {
         return response()->json([
             'error' => false,
             'message' => $message,
-            'data' => $data
-        ], $code);
+            'data' => $data,
+            'statusCode' => $statusCode
+        ], $httpCode);
     }
 
-    public static function success($message, $metaData = null, $data = null, $code = 200) {
+    public static function success($message, $metaData = null, $data = null, $statusCode = null, $httpCode = 200) {
         $payload = [
             'error' => true,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
+            'statusCode' => $statusCode
         ];
         if ($metaData) {
             $payload["metaData"] = $metaData;
         }
-        return response()->json($payload, $code);
+        return response()->json($payload, $httpCode);
     }
 }

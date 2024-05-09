@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger("is_deactivated")->after("updated_at");
+            $table->tinyInteger("is_deactivated")->default(0)->after("updated_at");
+            $table->string("username")->after("email");
+            $table->tinyInteger("is_email_verified")->default(0)->after("username");
+            $table->text("email_verification_token")->nullable()->after("email_verified_at");
         });   
     }
 
@@ -23,6 +26,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn("is_deactivated");
+            $table->dropColumn("username");
+            $table->dropColumn("is_email_verified");
+            $table->dropColumn("email_verification_token");
         });
     }
 };

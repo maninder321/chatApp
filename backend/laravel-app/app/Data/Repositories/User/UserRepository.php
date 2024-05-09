@@ -26,7 +26,7 @@ class UserRepository
      * Create a new user.
      *
      * @param array $payload The user data.
-     * @return bool Whether the user was successfully created.
+     * @return bool|int Whether the user was successfully created.
      */
     public function create($payload)
     {
@@ -43,7 +43,10 @@ class UserRepository
         $this->modelMapper($payload, $model);
 
         // Save the user model
-        return $model->save();
+        $created = $model->save();
+
+        return $created ? $model->id : false;
+
     }
 
     /**
@@ -68,6 +71,26 @@ class UserRepository
 
         // Save the updated user
         return $user->save();
+    }
+
+    /**
+     * Retrieve users by a specific column value.
+     *
+     * @param string $column The column name.
+     * @param mixed $value The column value.
+     * @return mixed The user or null if not found.
+     */
+    public function getByColumn($column, $value)
+    {
+        // Retrieve user by column value
+        $user = User::where($column, $value)->get();
+
+        // If user exists, return it, otherwise return null
+        if ($user) {
+            return $user;
+        }
+
+        return null;
     }
 
     /**
@@ -135,8 +158,17 @@ class UserRepository
             case UserKeys::EMAIL:
                 $model->email = $value;
                 break;
+            case UserKeys::USERNAME:
+                $model->username = $value;
+                break;
+            case UserKeys::IS_EMAIL_VERIFIED:
+                $model->is_email_verified = $value;
+                break;
             case UserKeys::EMAIL_VERIFIED_AT:
                 $model->email_verified_at = $value;
+                break;
+            case UserKeys::EMAIL_VERIFICATION_TOKEN:
+                $model->email_verification_token = $value;
                 break;
             case UserKeys::PASSWORD:
                 $model->password = $value;

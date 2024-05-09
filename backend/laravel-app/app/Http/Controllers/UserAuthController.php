@@ -69,7 +69,7 @@ class UserAuthController extends Controller
             'lastName' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|string|max:255',
-            'username' => 'required|string',
+            'userName' => 'required|string',
         ]);
 
         // If validation fails, return error response
