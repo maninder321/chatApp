@@ -8,6 +8,9 @@ services:
       - ./apache-config:/etc/apache2/sites-available # Mount custom Apache configuration
     ports:
       - 9005:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   
   mysql_db:
     image: mysql:latest
