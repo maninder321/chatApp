@@ -17,8 +17,13 @@ class UserRoutes
 
     public static function authRoutes()
     {
-        Route::post("/register", [UserAuthController::class, "registerHandler"]);
+        Route::post("register", [UserAuthController::class, "registerHandler"]);
         Route::post("/login", [UserAuthController::class, "loginHandler"]);
     }
 
+    public static function verificationRoutes()
+    {
+        Route::get("verifyEmailToken", [UserAuthController::class, "verifyEmailTokenHandler"]);
+        Route::post("/login", [UserAuthController::class, "loginHandler"]);
+    }
 }

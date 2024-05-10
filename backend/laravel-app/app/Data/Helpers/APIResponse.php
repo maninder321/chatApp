@@ -7,10 +7,12 @@
  * 
  */
 
-namespace App\Helpers;
+namespace App\Data\Helpers;
 
-class APIResponse {
-    public static function error($message, $data = null, $statusCode = null, $httpCode = 400) {
+class APIResponse
+{
+    public static function error($message, $data = null, $statusCode = null, $httpCode = 400)
+    {
         return response()->json([
             'error' => false,
             'message' => $message,
@@ -19,7 +21,8 @@ class APIResponse {
         ], $httpCode);
     }
 
-    public static function success($message, $metaData = null, $data = null, $statusCode = null, $httpCode = 200) {
+    public static function success($message, $metaData = null, $data = null, $statusCode = null, $httpCode = 200)
+    {
         $payload = [
             'error' => true,
             'message' => $message,

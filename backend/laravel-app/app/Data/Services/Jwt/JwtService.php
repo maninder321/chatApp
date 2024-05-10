@@ -10,6 +10,7 @@
 namespace App\Data\Services\Jwt;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JwtService
 {
@@ -41,14 +42,13 @@ class JwtService
 
         try {
             // Decode the JWT token
-            $decoded = JWT::decode($jwtToken, $jwtSecret);
-            
-            return $decoded;
+            $decoded = JWT::decode($jwtToken, new Key($jwtSecret, 'HS256'));
 
+            return (array)$decoded;
         } catch (\Exception $e) {
+            dd($e);
             // If decoding fails, return null
             return null;
         }
     }
-
 }

@@ -9,10 +9,10 @@
 
 namespace App\Data\Services\User;
 
-use App\Data\ErrorStatus\User\LoginRegisterApiStatus;
+use App\Data\ApiStatus\User\LoginRegisterApiStatus;
+use App\Data\Helpers\APIResponse;
 use App\Data\Keys\User\UserKeys;
 use App\Data\Repositories\User\UserRepository;
-use App\Helpers\APIResponse;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterUserService
@@ -42,7 +42,7 @@ class RegisterUserService
         $password = $data["password"];
 
         // Check if username is already taken
-        $user = $this->userRepository->getByColumn(UserKeys::USERNAME, $userName);
+        $user = $this->userRepository->getByUserName($userName);
         if ($user) {
             return APIResponse::error(
                 message: "userName is already taken",
@@ -52,7 +52,7 @@ class RegisterUserService
         }
 
         // Check if email is already taken
-        $user = $this->userRepository->getByColumn(UserKeys::EMAIL, $email);
+        $user = $this->userRepository->getByEmail($email);
         if ($user) {
             return APIResponse::error(
                 message: "email is already taken",
@@ -94,5 +94,4 @@ class RegisterUserService
             statusCode: LoginRegisterApiStatus::USER_REGISTERED,
         );
     }
-
 }

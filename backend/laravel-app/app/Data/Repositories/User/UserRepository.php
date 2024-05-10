@@ -19,7 +19,6 @@ class UserRepository
 
     public function __construct()
     {
-        
     }
 
     /**
@@ -46,7 +45,6 @@ class UserRepository
         $created = $model->save();
 
         return $created ? $model->id : false;
-
     }
 
     /**
@@ -60,7 +58,7 @@ class UserRepository
     {
         // Find the user by ID
         $user = User::where(UserKeys::ID, $id)->first();
-        
+
         // If user not found, return false
         if (!$user) {
             return false;
@@ -71,6 +69,66 @@ class UserRepository
 
         // Save the updated user
         return $user->save();
+    }
+
+    /**
+     * Get a user by ID.
+     *
+     * @param int $id The ID of the user.
+     * @return mixed The user if found, otherwise false.
+     */
+    public function getById($id)
+    {
+        // Retrieve user by ID
+        $user = $this->getByColumn(UserKeys::ID, $id);
+
+        // If no user found, return false
+        if ($user->isEmpty()) {
+            return false;
+        }
+
+        // Return the first user from the result
+        return $user->first();
+    }
+
+    /**
+     * Get a user by username.
+     *
+     * @param string $userName The username of the user.
+     * @return mixed The user if found, otherwise false.
+     */
+    public function getByUserName($userName)
+    {
+        // Retrieve user by username
+        $user = $this->getByColumn(UserKeys::USERNAME, $userName);
+
+        // If no user found, return false
+        if ($user->isEmpty()) {
+            return false;
+        }
+
+        // Return the first user from the result
+        return $user->first();
+    }
+
+    /**
+     * Get a user by email.
+     *
+     * @param string $email The email of the user.
+     * @return mixed The user if found, otherwise false.
+     */
+    public function getByEmail($email)
+    {
+        // Retrieve user by email
+        $user = $this->getByColumn(UserKeys::EMAIL, $email);
+
+        // If no user found, return false
+        if ($user->isEmpty()) {
+            return false;
+        }
+
+        // Return the first user from the result
+        return $user->first();
     }
 
     /**
@@ -113,8 +171,7 @@ class UserRepository
         $models = [];
 
         // Iterate through the results and create user models
-        foreach ($results as $result)
-        {
+        foreach ($results as $result) {
             $model = new User();
             $model->fill((array) $result);
             $models[] = $model;
@@ -129,10 +186,10 @@ class UserRepository
      * @param mixed $model The model instance.
      * @return void
      */
-    private function modelMapper($payload, $model) {
+    private function modelMapper($payload, $model)
+    {
         // Map payload data to model attributes
-        foreach ($payload as $key => $value)
-        {
+        foreach ($payload as $key => $value) {
             $this->mapToModel($key, $value, $model);
         }
     }
@@ -147,8 +204,7 @@ class UserRepository
      */
     private function mapToModel($key, $value, $model)
     {
-        switch ($key) 
-        {
+        switch ($key) {
             case UserKeys::ID:
                 $model->id = $value;
                 break;
@@ -184,7 +240,4 @@ class UserRepository
                 break;
         }
     }
-
-
-
 }

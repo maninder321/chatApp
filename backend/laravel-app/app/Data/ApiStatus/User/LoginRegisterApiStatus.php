@@ -7,7 +7,7 @@
  * 
  */
 
-namespace App\Data\ErrorStatus\User;
+namespace App\Data\ApiStatus\User;
 
 final class LoginRegisterApiStatus
 {

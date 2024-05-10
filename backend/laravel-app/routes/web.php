@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['user'], function () {
+Route::get("/test", function () {
+    return "hllo";
+});
+
+Route::group(['prefix' => 'user'], function () {
     UserRoutes::authRoutes();
+    UserRoutes::verificationRoutes();
 });

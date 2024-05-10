@@ -9,22 +9,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Helpers\APIResponse;
 use App\Data\Services\User\LoginUserService;
 use App\Data\Services\User\RegisterUserService;
-use App\Helpers\APIResponse;
+use App\Data\Services\User\UserVerificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UserAuthController extends Controller
 {
-    
+
     private $registerUserService = null;
     private $loginUserService = null;
+    private $userVerificationService = null;
 
     public function __construct()
     {
         $this->registerUserService = new RegisterUserService();
         $this->loginUserService = new LoginUserService();
+        $this->userVerificationService = new UserVerificationService();
     }
 
     /**
@@ -33,7 +36,7 @@ class UserAuthController extends Controller
      * @param Request $request The request object.
      * @return mixed The response.
      */
-    public function loginHandler(Request $request) 
+    public function loginHandler(Request $request)
     {
         $data = $request->input();
 
@@ -44,7 +47,7 @@ class UserAuthController extends Controller
         ]);
 
         // If validation fails, return error response
-        if($validator->fails()){
+        if ($validator->fails()) {
             $errorMessage = $validator->errors()->first();
             return APIResponse::error($errorMessage);
         }
@@ -64,7 +67,7 @@ class UserAuthController extends Controller
         $data = $request->input();
 
         // Validate request data
-        $validator = Validator::make($request->input(),[
+        $validator = Validator::make($request->input(), [
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -73,7 +76,7 @@ class UserAuthController extends Controller
         ]);
 
         // If validation fails, return error response
-        if($validator->fails()){
+        if ($validator->fails()) {
             $errorMessage = $validator->errors()->first();
             return APIResponse::error($errorMessage);
         }
@@ -82,4 +85,34 @@ class UserAuthController extends Controller
         return $this->registerUserService->registerUser($data);
     }
 
+    /**
+     * Verify email token handler.
+     *
+     * @param Request $request The request object.
+     * @return mixed The response.
+     */
+    public function verifyEmailTokenHandler(Request $request)
+    {
+        $data = $request->input();
+
+        // Validate request data
+        $validator = Validator::make($request->input(), [
+            'token' => 'required|string',
+        ]);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+            return APIResponse::error($errorMessage);
+        }
+
+        // Register the user using the service
+        $isVerified = $this->userVerificationService->verifyEmailToken($data["token"]);
+
+        if ($isVerified) {
+            return "User Verified";
+        }
+
+        return "User not Verified";
+    }
 }
