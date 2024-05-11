@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string("username")->after("email");
             $table->tinyInteger("is_email_verified")->default(0)->after("username");
             $table->text("email_verification_token")->nullable()->after("email_verified_at");
-        });   
+            $table->text("forgot_password_token")->nullable()->after("email_verification_token");
+        });
     }
 
     /**
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->dropColumn("username");
             $table->dropColumn("is_email_verified");
             $table->dropColumn("email_verification_token");
+            $table->dropColumn("forgot_password_token");
         });
     }
 };

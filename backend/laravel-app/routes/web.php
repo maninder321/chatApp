@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/test", function () {
-    return "hllo";
-});
-
 Route::group(['prefix' => 'user'], function () {
     UserRoutes::authRoutes();
-    UserRoutes::verificationRoutes();
+
+    Route::group(['prefix' => 'email'], function () {
+        UserRoutes::verificationRoutes();
+    });
+
+    Route::group(['prefix' => 'forgot'], function () {
+        UserRoutes::forgotPasswordRoutes();
+    });
 });

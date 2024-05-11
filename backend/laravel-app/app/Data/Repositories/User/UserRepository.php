@@ -226,6 +226,9 @@ class UserRepository
             case UserKeys::EMAIL_VERIFICATION_TOKEN:
                 $model->email_verification_token = $value;
                 break;
+            case UserKeys::FORGOT_PASSWORD_TOKEN:
+                $model->forgot_password_token = $value;
+                break;
             case UserKeys::PASSWORD:
                 $model->password = $value;
                 break;
