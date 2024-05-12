@@ -185,4 +185,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'local_dev' => env('LOCAL_DEV', false),
+    'local_dev_port' => env('LOCAL_DEV_PORT', 8000)
+
 ];

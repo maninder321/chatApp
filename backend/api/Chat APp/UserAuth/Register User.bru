@@ -1,0 +1,21 @@
+meta {
+  name: Register User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/api/user/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName" : "Happy",
+    "lastName" : "Singh",
+    "email" : "happy@gmail.com",
+    "password" : "Qwerty@123",
+    "userName" : "userHappy"
+  }
+}

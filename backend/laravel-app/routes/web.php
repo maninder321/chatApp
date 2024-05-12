@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\Routes\User\UserRoutes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'user'], function () {
+    UserRoutes::authRoutes();
+
+    Route::group(['prefix' => 'email'], function () {
+        UserRoutes::verificationRoutes();
+    });
+
+    Route::group(['prefix' => 'forgot'], function () {
+        UserRoutes::forgotPasswordRoutes();
+    });
 });
