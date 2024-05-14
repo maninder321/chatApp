@@ -1,8 +1,8 @@
-import "./App.css";
-import GlobalLoader from "./components/GlobalLoader";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/mainRoutes";
 
 function App() {
-  return <GlobalLoader />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
