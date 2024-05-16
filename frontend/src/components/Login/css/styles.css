@@ -1,0 +1,95 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #57039a;
+}
+
+.headingSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.mainTitle {
+  font-weight: 700;
+  font-size: 43px;
+  color: white;
+}
+
+.subTitle {
+  font-weight: 500;
+  font-family: "Kanit";
+  font-size: 30px;
+  color: white;
+}
+
+.caption {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+  margin-top: 4px;
+}
+
+.loginForm {
+  background-color: white;
+  height: 446px;
+  width: 446px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 0;
+}
+
+.emailWrapper,
+.passwordWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  flex-grow: 0;
+}
+
+.emailWrapper span,
+.passwordWrapper span {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+#email,
+#password {
+  width: 100%;
+  height: 47px;
+  outline: none;
+}
+
+#email:focus,
+#password:focus {
+  border-color: #57039a;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0px 0px 8px rgba(255, 100, 255, 0.5);
+}
+
+.loginButton {
+  background-color: #57039a;
+  color: white;
+  height: 47px;
+  width: 80%;
+}
+
+.noAccount {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.noAccount span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #57039a;
+  cursor: pointer;
+}

@@ -10,7 +10,7 @@ function delayedObject(): Promise<any> {
         err: false,
         msg: "Hllo",
         data: {
-          tokenValid: true,
+          tokenValid: false,
           userId: 1,
         },
       });

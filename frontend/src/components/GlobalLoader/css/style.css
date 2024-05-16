@@ -1,10 +1,19 @@
+.globalLoaderContainer {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 .loader {
   display: block;
   position: relative;
   border-style: solid;
   box-sizing: border-box;
   border-width: 40px 60px 30px 60px;
-  border-color: #3760c9 #96ddfc #96ddfc #36bbf7;
+  border-color: #57039a #cc94f9 #cc94f9 #b865fb;
   animation: envFloating 1s ease-in infinite alternate;
 }
 
