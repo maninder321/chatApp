@@ -18,7 +18,7 @@ function delayedObject(): Promise<any> {
   });
 }
 
-async function checkTokenValid() {
+async function checkTokenValid(token: string) {
   let response = await delayedObject();
   if (response.err) {
     throw Error("Something went wrong");
