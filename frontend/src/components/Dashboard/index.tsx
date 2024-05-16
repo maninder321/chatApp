@@ -1,17 +1,12 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import ProtectedRoutes from "../ProtectedRoutes";
-import HomePage from "../../pages/HomePage";
+import { Outlet } from "react-router-dom";
 
-function Dashboard() {
+const Dashboard = () => {
   return (
-    <Routes>
-      <Route element={<ProtectedRoutes />}>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="chats" element={<>Chats</>} />
-        <Route path="*" element={<Navigate to="/" replace={true} />} />
-      </Route>
-    </Routes>
+    <>
+      <div>Navbar</div>
+      <Outlet />
+    </>
   );
-}
+};
 
 export default Dashboard;
