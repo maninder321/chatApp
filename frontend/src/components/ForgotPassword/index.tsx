@@ -26,7 +26,6 @@ function ForgotPassword() {
             <span className="mb-2">Email address</span>
             <input className="form-control" type="text" id="email" />
           </div>
-          hii<i className="fa-regular fa-circle-check fa-shake"></i>
           <button
             className={`forgotPasswordButton mt-4 ${
               isSubmitted ? "buttonSuccess" : ""
@@ -35,6 +34,12 @@ function ForgotPassword() {
               setIsSubmitted(true);
             }}
           >
+            {isSubmitted && (
+              <i
+                className="fa-regular fa-circle-check fa-shake"
+                style={{ fontSize: "20px" }}
+              ></i>
+            )}
             {isSubmitted ? "Email Sent" : "Send Email"}
           </button>
           <div className="separator">

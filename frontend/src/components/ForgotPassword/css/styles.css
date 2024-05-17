@@ -87,6 +87,10 @@
 
 .buttonSuccess {
   background-color: green !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  row-gap: 30px;
 }
 
 .noAccount,
