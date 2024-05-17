@@ -27,8 +27,15 @@ function Login() {
             <input className="form-control" type="password" id="password" />
           </div>
           <button className="loginButton mt-4">Login</button>
+          <div className="separator mt-5">
+            <div className="line"></div>
+            <div className="continueText">Or</div>
+          </div>
           <div className="noAccount mt-4">
             Don't have talkie-talk account? <span>Sign up</span>
+          </div>
+          <div className="forgotPassword mt-2">
+            Forgot Password? <span>Click Here</span>
           </div>
         </div>
       </div>
