@@ -2,6 +2,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./css/styles.css";
 import { useState } from "react";
+import Loader from "../SpinnerLoader";
+import SpinnerLoader from "../SpinnerLoader";
 
 function ForgotPassword() {
   const { isLoggedIn } = useAuth();

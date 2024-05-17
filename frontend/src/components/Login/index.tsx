@@ -43,7 +43,14 @@ function Login() {
             </span>
           </div>
           <div className="forgotPassword mt-2">
-            Forgot Password? <span>Click Here</span>
+            Forgot Password?{" "}
+            <span
+              onClick={() => {
+                navigtate("/forgotPassword");
+              }}
+            >
+              Click Here
+            </span>
           </div>
         </div>
       </div>
