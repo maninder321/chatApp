@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import ChatApp from "./components/ChatApp";
 import useAppInitialize from "./hooks/useAppInitialize";
 import GlobalLoader from "./components/GlobalLoader";
+import Signup from "./components/Signup";
 
 function App() {
   const { isInitializing } = useAppInitialize();
@@ -16,6 +17,7 @@ function App() {
     <Routes>
       <Route index path="/*" element={<ChatApp />} />
       <Route path="login" element={<Login />} />
+      <Route path="signup" element={<Signup />} />
     </Routes>
   );
 }
