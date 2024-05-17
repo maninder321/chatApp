@@ -129,3 +129,13 @@
   color: rgba(107, 114, 128, 1);
   background-color: white;
 }
+
+.forgotPasswordButton span {
+  margin-left: 5px;
+}
+
+.forgotPasswordMessage {
+  width: 80%;
+  word-break: break-all;
+  font-size: 17px;
+}

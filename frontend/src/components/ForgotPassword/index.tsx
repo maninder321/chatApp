@@ -22,10 +22,18 @@ function ForgotPassword() {
           <div className="caption">Let's connect with world</div>
         </div>
         <div className="forgotPasswordForm">
-          <div className="emailWrapper mb-4">
-            <span className="mb-2">Email address</span>
-            <input className="form-control" type="text" id="email" />
-          </div>
+          {!isSubmitted && (
+            <div className="emailWrapper mb-4">
+              <span className="mb-2">Email address</span>
+              <input className="form-control" type="text" id="email" />
+            </div>
+          )}
+          {isSubmitted && (
+            <div className="forgotPasswordMessage mb-1">
+              We've sent a password reset link to your email address associated
+              with this account (some@gmail.com)
+            </div>
+          )}
           <button
             className={`forgotPasswordButton mt-4 ${
               isSubmitted ? "buttonSuccess" : ""
@@ -33,6 +41,7 @@ function ForgotPassword() {
             onClick={() => {
               setIsSubmitted(true);
             }}
+            disabled={isSubmitted}
           >
             {isSubmitted && (
               <i
@@ -40,7 +49,7 @@ function ForgotPassword() {
                 style={{ fontSize: "20px" }}
               ></i>
             )}
-            {isSubmitted ? "Email Sent" : "Send Email"}
+            <span>{isSubmitted ? "Email Sent" : "Send Email"}</span>
           </button>
           <div className="separator">
             <div className="line"></div>
