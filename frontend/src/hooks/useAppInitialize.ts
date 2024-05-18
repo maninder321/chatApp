@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import checkTokenValid from "../services/checkTokenValid";
+import checkTokenValid from "../services/auth/checkTokenValid";
 import useStoredAuth from "./useStoredAuth";
 import { useAppDispatch } from "../redux/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/slices/authSlice";
 import { canRedirectToHome } from "../utils/NavigationUtility";
+import { setAxiosAuth } from "../axios/http";
 
 const useAppInitialize = () => {
   const [isInitializing, setIsInitializing] = useState<boolean>(true);
@@ -14,6 +15,7 @@ const useAppInitialize = () => {
   const location = useLocation();
 
   useEffect(() => {
+    setAxiosAuth({ token: getToken() });
     handleCheckTokenValid();
   }, []);
 
@@ -22,7 +24,7 @@ const useAppInitialize = () => {
       setIsInitializing(false);
       return;
     }
-    checkTokenValid(getToken())
+    checkTokenValid()
       .then((response) => {
         if (response.tokenValid) {
           dispatch(
@@ -30,9 +32,9 @@ const useAppInitialize = () => {
               isLoggedIn: true,
               token: getToken(),
               authData: {
-                id: response.userId + "",
-                name: "",
-                email: "",
+                id: response.userData.id + "",
+                name: response.userData.name,
+                email: response.userData.email,
               },
             })
           );

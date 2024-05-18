@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login";
 import ChatApp from "./components/ChatApp";
 import useAppInitialize from "./hooks/useAppInitialize";
 import GlobalLoader from "./components/GlobalLoader";
-import Signup from "./components/Signup";
-import ForgotPassword from "./components/ForgotPassword";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   const { isInitializing } = useAppInitialize();
@@ -17,9 +17,9 @@ function App() {
   return (
     <Routes>
       <Route index path="/*" element={<ChatApp />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgotPassword" element={<ForgotPassword />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
     </Routes>
   );
 }

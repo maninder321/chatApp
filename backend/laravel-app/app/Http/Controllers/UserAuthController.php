@@ -10,6 +10,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\Helpers\APIResponse;
+use App\Data\Services\Auth\AuthService;
 use App\Data\Services\User\LoginUserService;
 use App\Data\Services\User\RegisterUserService;
 use App\Data\Services\User\UserVerificationService;
@@ -114,5 +115,10 @@ class UserAuthController extends Controller
         }
 
         return "User not Verified";
+    }
+
+    public function checkTokenValidHanlder(Request $request)
+    {
+        return (new AuthService())->checkValidTokenHandler();
     }
 }

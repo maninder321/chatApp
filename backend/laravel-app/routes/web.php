@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
+    UserRoutes::authProtectedRoutes();
+});
+
 Route::group(['prefix' => 'user'], function () {
     UserRoutes::authRoutes();
 

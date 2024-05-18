@@ -15,4 +15,5 @@ final class LoginRegisterApiStatus
     const EMAIL_ALREADY_TAKEN = "email_already_taken";
     const FAILED_TO_REGISTER_USER = "failed_to_register_user";
     const USER_REGISTERED = "user_registered";
+    const USER_LOGGED_IN = "user_logged_in";
 }

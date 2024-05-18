@@ -9,6 +9,7 @@
 
 namespace App\Data\Services\User;
 
+use App\Data\ApiStatus\User\LoginRegisterApiStatus;
 use App\Data\Helpers\APIResponse;
 use App\Data\Services\Passport\PassportService;
 use Illuminate\Support\Facades\Http;
@@ -42,7 +43,8 @@ class LoginUserService
         }
         return APIResponse::success(
             message: "Login Success",
-            data: $loginDetails
+            data: $loginDetails,
+            statusCode: LoginRegisterApiStatus::USER_LOGGED_IN
         );
     }
 }

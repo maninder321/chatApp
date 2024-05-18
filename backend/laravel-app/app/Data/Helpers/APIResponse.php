@@ -24,7 +24,7 @@ class APIResponse
     public static function success($message, $metaData = null, $data = null, $statusCode = null, $httpCode = 200)
     {
         $payload = [
-            'error' => true,
+            'error' => false,
             'message' => $message,
             'data' => $data,
             'statusCode' => $statusCode
