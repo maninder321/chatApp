@@ -69,8 +69,7 @@ class UserAuthController extends Controller
 
         // Validate request data
         $validator = Validator::make($request->input(), [
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|string|max:255',
             'userName' => 'required|string',
