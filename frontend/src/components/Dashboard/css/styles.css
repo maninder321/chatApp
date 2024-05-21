@@ -1,0 +1,14 @@
+.dashboard {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.nav {
+  width: 85px;
+}
+
+.mainSection {
+  background-color: #fefef1;
+  width: calc(100vw - 85px);
+}
