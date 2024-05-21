@@ -7,7 +7,7 @@ function Navbar() {
         <img src="https://picsum.photos/id/237/200/300" />
         <div className="activeStatus online"></div>
       </div>
-      <div className="navItems my-4">
+      <div className="navItems my-5">
         <div className="navItem">
           <i className="fa-solid fa-house-chimney"></i>
         </div>
