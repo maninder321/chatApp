@@ -82,3 +82,13 @@
   color: #fefef1;
   background-color: #57039a;
 }
+
+.extraNavItems .navItem {
+  background-color: white;
+  /* color: rgb(103, 102, 102); */
+}
+
+.extraNavItems .navItem:hover {
+  background-color: #57039a;
+  color: white;
+}
