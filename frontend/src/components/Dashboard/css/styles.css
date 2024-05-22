@@ -9,6 +9,7 @@
 }
 
 .mainSection {
-  background-color: #fefef1;
+  /* background-color: #fefef1; */
+  background-color: white;
   width: calc(100vw - 85px);
 }
