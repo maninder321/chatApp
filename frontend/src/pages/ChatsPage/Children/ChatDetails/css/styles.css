@@ -1,0 +1,21 @@
+.chatDetailsWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.chatDetailsWrapper .chatDetailsHeader {
+  height: 80px;
+  flex-grow: 0;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+.chatDetailsWrapper .chatDetailsMain {
+  flex-grow: 1;
+}
+
+.chatDetailsWrapper .chatDetailsFooter {
+  flex-grow: 0;
+  height: 60px;
+}
