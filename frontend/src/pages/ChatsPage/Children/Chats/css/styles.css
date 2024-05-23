@@ -1,3 +1,10 @@
+.chatsWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .chatsWrapper .title {
   display: flex;
   justify-content: space-between;
@@ -29,6 +36,7 @@
   /* background-color: red; */
   height: 60px;
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
 }
@@ -56,4 +64,26 @@
   color: gray;
   font-weight: bold;
   position: absolute;
+}
+
+.chatsList {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  flex-grow: 1;
+  height: calc(100vh - 140px);
+  margin-bottom: 30px;
+  padding: 5px 10px;
+  overflow-y: scroll;
+  /* margin-top: 10px; */
+}
+
+.chatsList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatsList::-webkit-scrollbar-thumb {
+  background-color: #57039a;
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
 }
