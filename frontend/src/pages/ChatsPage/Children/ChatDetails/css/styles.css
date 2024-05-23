@@ -8,14 +8,80 @@
 .chatDetailsWrapper .chatDetailsHeader {
   height: 80px;
   flex-grow: 0;
-  border-bottom: 1px solid rgb(228, 228, 228);
+  border-bottom: 1px solid #e4e4e4;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  /* 0px 0px 8px rgba(137, 137, 137, 0.5); */
+}
+
+.chatDetailsHeader .headerProfileDetails {
+  flex-grow: 1;
+}
+
+.chatDetailsHeader {
+  padding: 0px 15px;
+}
+
+.chatDetailsHeader .headerProfileDetails {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  justify-content: space-between;
+  margin-left: 15px;
+  /* background-color: red; */
+}
+
+.chatDetailsHeader .headerProfileDetails .username {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.chatDetailsHeader .headerProfileDetails .activityStatus {
+  font-size: 15px;
+  color: gray;
+  /* font-weight: bold; */
+}
+
+.chatDetailsHeader .headerOptions {
+  font-size: 30px;
+  color: gray;
+  margin-right: 20px;
+}
+
+.chatDetailsHeader .headerProfileImg img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
 }
 
 .chatDetailsWrapper .chatDetailsMain {
   flex-grow: 1;
 }
 
+.chatDetailsMain::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatDetailsMain::-webkit-scrollbar-thumb {
+  background-color: #57039a;
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
+}
+
 .chatDetailsWrapper .chatDetailsFooter {
   flex-grow: 0;
   height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.chatDetailsMain {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column-reverse;
+  padding: 0px 20px;
+  height: calc(100vh - 140px);
+  overflow-y: scroll;
 }
