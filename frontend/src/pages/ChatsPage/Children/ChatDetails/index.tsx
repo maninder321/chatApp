@@ -91,10 +91,15 @@ function ChatDetails() {
       </div>
       <div className="chatDetailsFooter">
         <div className="messageInput">
-          <input type="text" className="form-control" />
+          <input
+            type="text"
+            placeholder="Type Message Here"
+            className="form-control"
+          />
+          <i className="fa-solid fa-paperclip"></i>
         </div>
         <div className="sendButton">
-          <i className="fa-regular fa-paper-plane"></i>
+          <i className="fa-solid fa-circle-arrow-right"></i>
         </div>
       </div>
     </div>
