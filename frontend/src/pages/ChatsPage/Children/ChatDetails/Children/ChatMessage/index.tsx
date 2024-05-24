@@ -8,8 +8,15 @@ function ChatMessage({
   messageText: string;
 }) {
   return (
-    <div className={`messageTextWrapper ${direction}`}>
-      <div className="messageText">{messageText}</div>
+    <div
+      className={`messageTextWrapper ${
+        direction === "in" ? "inWrapper" : "outWrapper"
+      }`}
+    >
+      <div className="messageProfile">
+        <img src="https://picsum.photos/id/237/200/300"></img>
+      </div>
+      <div className={`messageText ${direction}`}>{messageText}</div>
     </div>
   );
 }
