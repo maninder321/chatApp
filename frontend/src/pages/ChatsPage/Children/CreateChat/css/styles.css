@@ -28,3 +28,9 @@
   border-radius: 10px;
   /* outline: 1px solid slategrey; */
 }
+
+.createChatBackButton {
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 20px;
+}

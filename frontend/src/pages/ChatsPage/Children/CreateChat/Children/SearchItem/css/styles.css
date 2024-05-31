@@ -1,0 +1,64 @@
+.searchItemWrapper {
+  background-color: white;
+  height: 80px;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 15px;
+  box-shadow: 0px 1px 1px rgb(255 25 25 / 8%) inset,
+    0px 0px 8px rgba(137, 137, 137, 0.5);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.searchItemWrapper .userAvatar {
+  margin-left: 12px;
+}
+
+.searchItemWrapper .userAvatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.searchItemDetails {
+  /* background-color: red; */
+  overflow: hidden;
+  margin: 0px 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  height: 65%;
+  justify-content: space-between;
+}
+
+.searchItemDetails .searchItemTitle {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.searchItemDetails .searchItemMsg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+  /* width: 220px; */
+}
+
+.searchItemWrapper:hover {
+  background-color: #57039a;
+  color: white;
+}
+
+.searchItemWrapper:hover .searchItemMsg,
+.searchItemWrapper:hover .chatTimestamp {
+  color: white;
+}
+
+.searchItemWrapper:hover .unreadCount {
+  background-color: white;
+  color: #57039a;
+}

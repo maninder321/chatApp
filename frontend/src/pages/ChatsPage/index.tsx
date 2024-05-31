@@ -14,12 +14,14 @@ function ChatsPage() {
 
   return (
     <div className="chatsPageWrapper">
-      <CreateChat
-        show={showModal}
-        onHide={() => {
-          dispatch(toggleModal());
-        }}
-      />
+      {showModal && (
+        <CreateChat
+          show={showModal}
+          onHide={() => {
+            dispatch(toggleModal());
+          }}
+        />
+      )}
       <div className="leftSection">
         <Chats />
       </div>
