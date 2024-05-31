@@ -8,8 +8,8 @@ function ChatApp() {
   return (
     <Routes>
       <Route element={<ProtectedRoutes />}>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="chats" element={<ChatsPage />} />
+        <Route index path="/" element={<ChatsPage />} />
+        {/* <Route path="chats" element={<ChatsPage />} /> */}
         <Route path="settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace={true} />} />
       </Route>

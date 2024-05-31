@@ -16,6 +16,14 @@ function Navbar() {
           <div className="activeStatus online"></div>
         </div>
         <div className="navItems my-4">
+          {/* <div
+            className="navItem"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <i className="fa-solid fa-house-chimney"></i>
+          </div> */}
           <div
             className="navItem"
             onClick={() => {
@@ -23,14 +31,7 @@ function Navbar() {
             }}
           >
             <i className="fa-solid fa-house-chimney"></i>
-          </div>
-          <div
-            className="navItem"
-            onClick={() => {
-              navigate("/chats");
-            }}
-          >
-            <i className="fa-solid fa-inbox"></i>
+            {/* <i className="fa-solid fa-inbox"></i> */}
           </div>
           <div
             className="navItem"
