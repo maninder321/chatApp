@@ -1,4 +1,5 @@
 import Logo from "../../components/Logo";
+import SettingDetails from "./Children/SettingDetails";
 import styles from "./css/settingPage.module.css";
 
 function SettingsPage() {
@@ -34,7 +35,9 @@ function SettingsPage() {
           </div>
         </div>
       </div>
-      <div className={styles.rightSettingSection}>Right Section</div>
+      <div className={styles.rightSettingSection}>
+        <SettingDetails />
+      </div>
     </div>
   );
 }
