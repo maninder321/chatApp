@@ -1,0 +1,91 @@
+.notificationItemWrapper {
+  background-color: white;
+  height: 80px;
+  flex-shrink: 0;
+  padding: 0 7px;
+  display: flex;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  align-items: center;
+  cursor: pointer;
+}
+
+.notificationItemWrapper .userAvatar {
+  margin-left: 12px;
+}
+
+.notificationItemWrapper .userAvatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notificationItemDetails {
+  /* background-color: red; */
+  overflow: hidden;
+  margin: 0px 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  height: 65%;
+  justify-content: space-between;
+}
+
+.notificationItemDetails .notificationItemTitle {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.notificationItemDetails .notificationItemMsg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+  /* width: 220px; */
+}
+
+.notificationExtraDetails {
+  display: flex;
+  /* height: 100%; */
+  /* background-color: red; */
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-right: 12px;
+  height: 65%;
+}
+
+.notificationExtraDetails .notificationTimestamp {
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+}
+
+.notificationExtraDetails .unreadCount {
+  background-color: #57039a;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationItemWrapper:hover {
+  background-color: #57039a;
+  color: white;
+}
+
+.notificationItemWrapper:hover .notificationItemMsg,
+.notificationItemWrapper:hover .notificationTimestamp {
+  color: white;
+}
+
+.notificationItemWrapper:hover .unreadCount {
+  background-color: white;
+  color: #57039a;
+}

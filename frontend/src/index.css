@@ -57,6 +57,16 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #57039a;
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
