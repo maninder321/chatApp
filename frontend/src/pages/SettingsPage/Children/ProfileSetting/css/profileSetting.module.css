@@ -3,10 +3,19 @@
   height: 100vh;
 }
 
+.profileContainer {
+  height: calc(100% - 80px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .profileHeader {
   background-color: white;
   height: 80px;
-  font-size: 30px;
+  font-size: 25px;
   border-bottom: 1px solid rgb(228, 228, 228);
   display: flex;
   align-items: center;
@@ -15,15 +24,16 @@
 }
 
 .profileBody {
-  width: 100%;
-  height: calc(100vh - 80px);
+  width: 50%;
+  height: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(228, 228, 228);
 }
 
 .profileImageSection {
-  margin-top: 50px;
   height: 300px;
   /* background-color: red; */
   display: flex;
@@ -63,7 +73,7 @@
 }
 
 .profileSettingForm {
-  width: 70%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,4 +83,16 @@
 .profileSettingForm input {
   height: 60px;
   margin-bottom: 20px;
+}
+
+.profileInput {
+  width: 80%;
+}
+
+.inputTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 2px;
+  margin-bottom: 7px;
+  display: inline-block;
 }
