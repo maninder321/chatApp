@@ -5,15 +5,15 @@ import ProfileSetting from "../ProfileSetting";
 function SettingDetails() {
   return (
     <>
-      <Routes>
-        <Route path="/profile" element={<ProfileSetting />} />
-        <Route
-          path="*"
-          element={<Navigate to={"/settings/profile"} replace={true} />}
-        />
-      </Routes>
       <div className={`${styles.settingDetails}`}>
-        <Outlet />
+        <Routes>
+          <Route path="/profile" element={<ProfileSetting />} />
+          <Route
+            path="*"
+            element={<Navigate to={"/settings/profile"} replace={true} />}
+          />
+        </Routes>
+        {/* <Outlet /> */}
       </div>
     </>
   );

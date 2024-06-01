@@ -13,3 +13,64 @@
   font-weight: bold;
   padding-left: 20px;
 }
+
+.profileBody {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileImageSection {
+  margin-top: 50px;
+  height: 300px;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.profileImageSection img {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border: 2px solid #57039a;
+}
+
+.profileImageChangeButton {
+  /* margin-left: 20px; */
+  font-size: 20px;
+  background-color: #57039a;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  cursor: pointer;
+  margin-top: 15px;
+  /* position: absolute; */
+  right: 0;
+}
+
+.profileImageChangeButton span {
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  /* background-color: red//; */
+}
+
+.profileSettingForm {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.profileSettingForm input {
+  height: 60px;
+  margin-bottom: 20px;
+}
