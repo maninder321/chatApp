@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->bigInteger("id")->autoIncrement();
             $table->bigInteger("conversation_id");
-            $table->longText("user_ids");
+            $table->longText("user_id");
             $table->datetime("created_at_gmt")->useCurrent();
             $table->datetime("updated_at_gmt")->useCurrent();
             $table->tinyInteger("deleted")->default(0);
