@@ -138,6 +138,24 @@ class ParticipantRepository
 
         return $models;
     }
+
+    public function addParticipants($conversationId, $userIds)
+    {
+        $payload = [];
+
+        foreach ($userIds as $userId) {
+            $payload[] = [
+                ParticipantKeys::CONVERSATION_ID => $conversationId,
+                ParticipantKeys::USER_ID => $userId,
+                ParticipantKeys::CREATED_AT_GMT => DateTimeUtility::getTimeStamp('GMT'),
+                ParticipantKeys::UPDATED_AT_GMT => DateTimeUtility::getTimeStamp('GMT'),
+                ParticipantKeys::DELETED => 0
+            ];
+        }
+
+        return Participant::insert($payload);
+    }
+
     /**
      * Map payload data to model attributes.
      *

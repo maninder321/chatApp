@@ -13,6 +13,7 @@ use App\Data\Keys\ConversationMessage\ConversationMessageKeys;
 use App\Data\Utils\DateTimeUtility;
 use App\Models\ConversationMessage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ConversationMessageRepository
 {
@@ -28,6 +29,15 @@ class ConversationMessageRepository
      */
     public function create($payload)
     {
+
+        if (!isset($payload[ConversationMessageKeys::UUID])) {
+            $payload[ConversationMessageKeys::UUID] = Str::uuid();
+        }
+
+        if (!isset($payload[ConversationMessageKeys::ATTACHMENT_BATCH_NUMBER])) {
+            $payload[ConversationMessageKeys::ATTACHMENT_BATCH_NUMBER] = null;
+        }
+
         // Set default values for certain attributes
         $payload[ConversationMessageKeys::CREATED_AT_GMT] = DateTimeUtility::getTimeStamp('GMT');
         $payload[ConversationMessageKeys::UPDATED_AT_GMT] = DateTimeUtility::getTimeStamp('GMT');

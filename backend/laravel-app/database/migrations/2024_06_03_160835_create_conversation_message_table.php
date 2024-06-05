@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger("sender_id");
             $table->string("uuid");
             $table->longText("message_text");
-            $table->string("attachment_batch_number");
+            $table->string("attachment_batch_number")->nullable();
             $table->datetime("created_at_gmt")->useCurrent();
             $table->datetime("updated_at_gmt")->useCurrent();
             $table->tinyInteger("deleted")->default(0);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('conversation_message');
+        Schema::dropIfExists('conversation_messages');
     }
 };

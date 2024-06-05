@@ -35,4 +35,23 @@ class CreateChatController extends Controller
 
         return $this->createConversationService->getChatUserList($data);
     }
+
+    public function startChatHandler(Request $request)
+    {
+        $data = $request->input();
+
+        // Validate request data
+        $validator = Validator::make($data, [
+            'userId' => 'required|numeric',
+            'message' => 'required|string'
+        ]);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+            return APIResponse::error($errorMessage);
+        }
+
+        return $this->createConversationService->startChat($data);
+    }
 }

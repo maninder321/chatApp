@@ -9,3 +9,14 @@ post {
   body: json
   auth: none
 }
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+    "start":0,
+    "limit":10
+  }
+}
