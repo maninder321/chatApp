@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\Routes\Chat\ChatRoutes;
 use App\Data\Routes\User\UserRoutes;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
-    UserRoutes::authProtectedRoutes();
+Route::group(['middleware' => 'auth:api'], function () {
+
+    Route::group(['prefix' => 'user'], function () {
+        UserRoutes::authProtectedRoutes();
+    });
+
+    Route::group(['prefix' => 'chat'], function () {
+        ChatRoutes::createChatRoutes();
+    });
 });
 
 Route::group(['prefix' => 'user'], function () {

@@ -33,6 +33,6 @@ class CreateChatController extends Controller
             return APIResponse::error($errorMessage);
         }
 
-        $this->createConversationService->getChatUserList($data);
+        return $this->createConversationService->getChatUserList($data);
     }
 }

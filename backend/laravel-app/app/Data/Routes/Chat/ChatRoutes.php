@@ -10,7 +10,7 @@
 namespace App\Data\Routes\Chat;
 
 use App\Http\Controllers\CreateChatController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 class ChatRoutes
 {
