@@ -9,6 +9,7 @@
 
 namespace App\Data\Routes\Chat;
 
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\ChatSidebarController;
 use App\Http\Controllers\CreateChatController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,12 @@ class ChatRoutes
     public static function chatSidebarRoutes()
     {
         Route::post("/getChats", [ChatSidebarController::class, "getChatsHandler"]);
-        Route::post("/search", [ChatSidebarController::class, "searchChatHandler"]);
+        // Route::post("/search", [ChatSidebarController::class, "searchChatHandler"]);
+    }
+
+    public static function chatMessageRoutes()
+    {
+        Route::post("/getMessages", [ChatMessageController::class, "getChatMessagesHandler"]);
+        // Route::post("/search", [ChatSidebarController::class, "searchChatHandler"]);
     }
 }
