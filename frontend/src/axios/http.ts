@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosAuth = axios.create({
   baseURL: import.meta.env.VITE_HOST_URL,
-  timeout: 1000,
+  timeout: 10000,
 });
 
 interface IAxiosAuthPayload {

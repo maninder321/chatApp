@@ -38,9 +38,12 @@ class CreateConversationService
     public function getChatUserList($data)
     {
 
+        $start = $data["start"];
+        $limit = $data["limit"];
+
         $currentUser = $this->getLoggedUser()->id;
 
-        $sql = "SELECT * FROM users WHERE is_deactivated = 0 AND id <> $currentUser";
+        $sql = "SELECT * FROM users WHERE is_deactivated = 0 AND id <> $currentUser LIMIT $limit OFFSET $start";
 
         $result = DB::select($sql);
 
@@ -57,7 +60,10 @@ class CreateConversationService
         return APIResponse::success(
             message: "list fetched",
             statusCode: CreateChatApiStatus::LIST_FETCHED,
-            data: $data
+            data: $data,
+            metaData: [
+                "count" => count($data)
+            ]
         );
     }
 

@@ -1,13 +1,20 @@
-import { Modal } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import SearchBar from "../../../../components/SearchBar";
 import SearchItem from "./Children/SearchItem";
 import "./css/styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateChatForm from "./Children/CreateChatForm";
+import useGetUsers from "./hooks/useGetUsers";
+import InfiniteLoader from "../../../../components/InfiniteLoader";
+import SpinnerLoader from "../../../../components/SpinnerLoader";
 
 function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
   const [showList, setShowList] = useState<boolean>(true);
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const { isLoading, users, fetchUsers, hasMore } = useGetUsers();
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -40,13 +47,14 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
               <>
                 <SearchBar className="my-0" />
                 <div className="searchItems">
-                  {list.map((value, index) => {
+                  {isLoading && <SpinnerLoader size="20px" color="black" />}
+                  {users.map((value, index) => {
                     return (
                       <SearchItem
-                        key={value}
-                        id={value}
-                        name="Maninder"
-                        userName="maninder7463"
+                        key={value.id}
+                        id={value.id}
+                        name={value.name}
+                        userName={value.userName}
                         isActive={false}
                         onClickHandle={() => {
                           console.log(value);
@@ -55,6 +63,15 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
                       />
                     );
                   })}
+                  {
+                    <InfiniteLoader
+                      hasMore={hasMore}
+                      loadDataCallback={() => {
+                        console.log("hello");
+                        fetchUsers();
+                      }}
+                    />
+                  }
                 </div>
               </>
             )}
