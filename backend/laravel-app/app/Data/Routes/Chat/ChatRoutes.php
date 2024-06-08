@@ -24,7 +24,7 @@ class ChatRoutes
 
     public static function chatSidebarRoutes()
     {
-        Route::post("/getChats", [ChatSidebarController::class, "getChatsHandler"]);
+        Route::post("/getChats", [ChatSidebarController::class, "chatListUserHandler"]);
         // Route::post("/search", [ChatSidebarController::class, "searchChatHandler"]);
     }
 

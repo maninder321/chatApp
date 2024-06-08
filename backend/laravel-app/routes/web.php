@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'chat'], function () {
         ChatRoutes::createChatRoutes();
+        ChatRoutes::chatSidebarRoutes();
+        ChatRoutes::chatMessageRoutes();
     });
 });
 

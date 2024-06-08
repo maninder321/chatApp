@@ -1,11 +1,19 @@
+import { useEffect } from "react";
 import SearchBar from "../../../../components/SearchBar";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { toggleModal } from "../../../../redux/slices/createChatSlice";
 import ChatItem from "./Children/ChatItem";
 import "./css/styles.css";
+import useGetChats from "./hooks/useGetChats";
+import InfiniteLoader from "../../../../components/InfiniteLoader";
 
 function Chats() {
   const dispatch = useAppDispatch();
+  const { isLoading, chats, fetchChats, hasMore } = useGetChats();
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
 
   return (
     <div className="chatsWrapper">
@@ -22,21 +30,17 @@ function Chats() {
       </div>
       <SearchBar />
       <div className="chatsList">
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
-        <ChatItem />
+        {chats.map((value, index) => {
+          return <ChatItem />;
+        })}
+        {
+          <InfiniteLoader
+            hasMore={hasMore}
+            loadDataCallback={() => {
+              fetchChats();
+            }}
+          />
+        }
       </div>
     </div>
   );

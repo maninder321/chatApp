@@ -1,10 +1,11 @@
+import { defaultProfileImage } from "../../../../../../utils/ProfileUtility";
 import "./css/styles.css";
 
 function ChatItem() {
   return (
     <div className="chatItemWrapper">
       <div className="userAvatar">
-        <img src="https://picsum.photos/id/237/200/300" alt="" />
+        <img src={defaultProfileImage()} alt="" />
       </div>
       <div className="chatItemDetails">
         <div className="chatItemTitle">Maninder</div>

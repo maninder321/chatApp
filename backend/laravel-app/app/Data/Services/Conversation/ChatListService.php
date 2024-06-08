@@ -34,9 +34,9 @@ class ChatListService
             FROM
                 participants
             INNER JOIN
-                conversation
+                conversations
             ON
-                conversation.creator_id = participants.user_id
+                conversations.creator_id = participants.user_id
             WHERE
                 participants.user_id = $currentUser
                 AND

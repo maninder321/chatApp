@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import createChatReducer from "./slices/createChatSlice";
 import globalReducer from "./slices/globalSlice";
+import chatSidebarReducer from "./slices/chatSidebarSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     createChat: createChatReducer,
     global: globalReducer,
+    chatSidebar: chatSidebarReducer,
   },
 });
 
