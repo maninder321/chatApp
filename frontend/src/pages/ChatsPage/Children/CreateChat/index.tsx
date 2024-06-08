@@ -2,15 +2,21 @@ import { Modal, Spinner } from "react-bootstrap";
 import SearchBar from "../../../../components/SearchBar";
 import SearchItem from "./Children/SearchItem";
 import "./css/styles.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CreateChatForm from "./Children/CreateChatForm";
 import useGetUsers from "./hooks/useGetUsers";
 import InfiniteLoader from "../../../../components/InfiniteLoader";
 import SpinnerLoader from "../../../../components/SpinnerLoader";
+import { useAppDispatch } from "../../../../redux/hooks";
+import {
+  resetSelectedUser,
+  setSelectedUser,
+} from "../../../../redux/slices/createChatSlice";
 
 function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
   const [showList, setShowList] = useState<boolean>(true);
   const { isLoading, users, fetchUsers, hasMore } = useGetUsers();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     fetchUsers();
@@ -29,6 +35,7 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
             {!showList && (
               <span
                 onClick={() => {
+                  dispatch(resetSelectedUser());
                   setShowList(true);
                 }}
                 className="createChatBackButton"
@@ -47,7 +54,11 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
               <>
                 <SearchBar className="my-0" />
                 <div className="searchItems">
-                  {isLoading && <SpinnerLoader size="20px" color="black" />}
+                  {isLoading && (
+                    <div className="createChatLoader">
+                      <SpinnerLoader size="30px" color="black" />
+                    </div>
+                  )}
                   {users.map((value, index) => {
                     return (
                       <SearchItem
@@ -55,19 +66,19 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
                         id={value.id}
                         name={value.name}
                         userName={value.userName}
-                        isActive={false}
+                        isActive={value.isActive}
                         onClickHandle={() => {
-                          console.log(value);
+                          dispatch(setSelectedUser(value));
                           setShowList(false);
                         }}
                       />
                     );
                   })}
+
                   {
                     <InfiniteLoader
                       hasMore={hasMore}
                       loadDataCallback={() => {
-                        console.log("hello");
                         fetchUsers();
                       }}
                     />

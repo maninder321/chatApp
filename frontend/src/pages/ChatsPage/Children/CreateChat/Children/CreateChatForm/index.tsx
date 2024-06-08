@@ -1,6 +1,9 @@
+import { useAppSelector } from "../../../../../../redux/hooks";
 import "./css/styles.css";
 
 function CreateChatForm() {
+  const user = useAppSelector((state) => state.createChat.selectedUser);
+
   return (
     <div className="createChatForm">
       <div className="createChatFormSearchDetails">
@@ -9,9 +12,11 @@ function CreateChatForm() {
         </div>
         <div className="searchItemDetails">
           <div className="searchItemTitle">
-            {"Maninder" + ` (${"maninder7463"})`}
+            {user?.name + ` (${user?.userName})`}
           </div>
-          <div className="searchItemMsg">{true ? "Online" : "Offline"}</div>
+          <div className="searchItemMsg">
+            {user?.isActive ? "Online" : "Offline"}
+          </div>
         </div>
       </div>
       <div className="createChatMainForm">

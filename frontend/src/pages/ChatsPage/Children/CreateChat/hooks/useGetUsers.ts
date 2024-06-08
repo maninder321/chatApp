@@ -1,16 +1,26 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import getUsers, {
   IGetUserPayload,
   IGetUserResponse,
 } from "../../../../../services/chat/createChat/getUsers";
+import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import {
+  addUsers,
+  resetUsers,
+} from "../../../../../redux/slices/createChatSlice";
 
 const useGetUsers = () => {
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => state.createChat.userList);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const isLoadingRef = useRef(isLoading);
-  const [users, setUsers] = useState<IGetUserResponse["users"]>([]);
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const offsetRef = useRef<number>(0);
   const limitRef = useRef<number>(10);
+  const [offset, setOffset] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(resetUsers());
+  }, []);
 
   const handlePagination = useCallback((currentCount: number) => {
     if (currentCount < limitRef.current) {
@@ -18,22 +28,21 @@ const useGetUsers = () => {
     } else {
       setHasMore(true);
     }
-    offsetRef.current += currentCount;
+    setOffset((prev) => prev + currentCount);
   }, []);
 
   const fetchUsers = useCallback(() => {
-    if (isLoadingRef.current) {
+    if (isLoading) {
       return;
     }
     let payload: IGetUserPayload = {
-      start: offsetRef.current,
+      start: offset,
       limit: limitRef.current,
     };
     setIsLoading(true);
-    isLoadingRef.current = true;
     getUsers(payload)
       .then((response) => {
-        setUsers((prev) => [...prev, ...response.users]);
+        dispatch(addUsers(response.users));
         handlePagination(response.metaData.count);
       })
       .catch((error) => {
@@ -41,9 +50,8 @@ const useGetUsers = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        isLoadingRef.current = false;
       });
-  }, [handlePagination]);
+  }, [handlePagination, offset, isLoading]);
 
   return {
     isLoading,

@@ -53,7 +53,8 @@ class CreateConversationService
             $data[] = [
                 "id" => $singleResult->id,
                 "name" => $singleResult->name,
-                "userName" => $singleResult->username
+                "userName" => $singleResult->username,
+                "isActive" => true
             ];
         }
 

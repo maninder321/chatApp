@@ -9,6 +9,7 @@ interface User {
   id: number;
   name: string;
   userName: string;
+  isActive: boolean;
 }
 
 export interface IGetUserResponse {

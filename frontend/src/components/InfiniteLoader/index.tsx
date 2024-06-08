@@ -15,19 +15,32 @@ function InfiniteLoader({
   color = "black",
   loadDataCallback,
 }: InfiniteLoaderProps) {
-  const observer = useRef<IntersectionObserver>();
-  const loaderRef = useCallback((node: any) => {
+  const observer = useRef<IntersectionObserver | null>(null);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (observer.current) {
+      observer.current.disconnect();
+    }
+
     observer.current = new IntersectionObserver(
-      (entry: IntersectionObserverEntry[]) => {
-        if (entry[0].isIntersecting) {
+      (entries: IntersectionObserverEntry[]) => {
+        if (entries[0].isIntersecting) {
           loadDataCallback();
         }
       }
     );
-    if (node) {
-      observer.current.observe(node);
+
+    const currentLoaderRef = loaderRef.current;
+    if (currentLoaderRef) {
+      observer.current.observe(currentLoaderRef);
     }
-  }, []);
+
+    return () => {
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+    };
+  }, [loadDataCallback]);
 
   return hasMore ? (
     <div ref={loaderRef} className={`${styles.infiniteLoaderWrapper}`}>
