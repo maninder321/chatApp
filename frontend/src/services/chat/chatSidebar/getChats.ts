@@ -10,6 +10,8 @@ export interface ChatItem {
   name: string;
   lastMessage: string;
   profileImgUrl: boolean;
+  unreadCount: number;
+  timestamp: string;
 }
 
 export interface IGetChatsResponse {

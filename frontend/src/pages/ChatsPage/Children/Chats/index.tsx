@@ -31,7 +31,15 @@ function Chats() {
       <SearchBar />
       <div className="chatsList">
         {chats.map((value, index) => {
-          return <ChatItem />;
+          return (
+            <ChatItem
+              key={value.id}
+              title={value.name}
+              message={value.lastMessage}
+              timestamp={value.timestamp}
+              unreadCount={value.unreadCount}
+            />
+          );
         })}
         {
           <InfiniteLoader
