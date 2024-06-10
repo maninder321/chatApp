@@ -1,7 +1,34 @@
+import { useEffect } from "react";
 import ChatMessage from "./Children/ChatMessage";
 import "./css/styles.css";
+import useGetMessages from "./hooks/useGetMessages";
+import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { resetMessages } from "../../../../redux/slices/chatMessagesSlice";
+import SpinnerLoader from "../../../../components/SpinnerLoader";
+
+let controller: AbortController;
 
 function ChatDetails() {
+  const { isLoading, fetchMessages, hasMore, messages, resetPagination } =
+    useGetMessages();
+  const { chatId } = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (chatId) {
+      dispatch(resetMessages());
+      resetPagination();
+      controller = new AbortController();
+      fetchMessages(+chatId, controller.signal);
+    }
+    return () => {
+      if (controller) {
+        controller.abort();
+      }
+    };
+  }, [chatId]);
+
   return (
     <div className="chatDetailsWrapper">
       <div className="chatDetailsHeader">
@@ -17,77 +44,18 @@ function ChatDetails() {
         </div>
       </div>
       <div className="chatDetailsMain pt-3">
-        <ChatMessage
-          direction="in"
-          messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor
-        voluptatem unde voluptate modi quas sapiente ratione provident natus
-        voluptates a, doloribus, ipsum excepturi consequuntur? Ipsam quis dolor
-        omnis illum! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Commodi, ipsam dolore minus perferendis consectetur, dolor neque amet
-        placeat veniam perspiciatis in, deleniti exercitationem rem sint eos?
-        Ipsa earum exercitationem alias. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Pariatur ducimus repudiandae voluptatem natus quod
-        iusto vel fuga, provident odit cum necessitatibus, quam expedita,
-        aspernatur suscipit sapiente quibusdam laboriosam eveniet mollitia?"
-        />
-        <ChatMessage
-          direction="out"
-          messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor
-        voluptatem unde voluptate modi quas sapiente ratione provident natus
-        voluptates a, doloribus, ipsum excepturi consequuntur? Ipsam quis dolor
-        omnis illum! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Commodi, ipsam dolore minus perferendis consectetur, dolor neque amet
-        placeat veniam perspiciatis in, deleniti exercitationem rem sint eos?
-        Ipsa earum exercitationem alias. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Pariatur ducimus repudiandae voluptatem natus quod
-        iusto vel fuga, provident odit cum necessitatibus, quam expedita,
-        aspernatur suscipit sapiente quibusdam laboriosam eveniet mollitia?"
-        />
-        <ChatMessage
-          direction="out"
-          messageText="dita,
-        aspernatur suscipit sapiente quibusdam laboriosam eveniet mollitia?"
-        />
-        <ChatMessage direction="out" messageText="Hello how are you?" />
-        <ChatMessage
-          direction="in"
-          messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor
-        voluptatem unde voluptate modi quas sapiente ratione provident natus
-        voluptates a, doloribus, ipsum excepturi consequuntur? Ipsam quis dolor
-        omnis illum! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Commodi, ipsam dolore minus perferendis consectetur, dolor neque amet
-        placeat veniam perspiciatis in, deleniti exercitationem rem sint eo"
-        />
-        <ChatMessage direction="out" messageText="hi" />
-        <ChatMessage
-          direction="in"
-          messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor
-        voluptatem unde voluptate modi quas sapiente ratione provident natus
-        voluptates a, doloribus, ipsum excepturi consequuntur? Ipsam quis dolor
-        omnis illum! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Commodi, ipsam dolore minus perferendis consectetur, dolor neque amet
-        placeat veniam perspiciatis in, deleniti exercitationem rem sint eos?
-        Ipsa earum exercitationem alias. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Pariatur ducimus repudiandae voluptatem natus quod
-        iusto vel fuga, provident odit cum necessitatibus, quam expedita,
-        aspernatur suscipit sapiente quibusdam laboriosam eveniet mollitia?"
-        />
-        <ChatMessage
-          direction="out"
-          messageText="dita,
-        aspernatur suscipit sapiente quibusdam laboriosam eveniet mollitia?"
-        />
-        <ChatMessage direction="out" messageText="Hello how are you?" />
-        <ChatMessage
-          direction="in"
-          messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus dolor
-        voluptatem unde voluptate modi quas sapiente ratione provident natus
-        voluptates a, doloribus, ipsum excepturi consequuntur? Ipsam quis dolor
-        omnis illum! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Commodi, ipsam dolore minus perferendis consectetur, dolor neque amet
-        placeat veniam perspiciatis in, deleniti exercitationem rem sint eo"
-        />
-        <ChatMessage direction="out" messageText="hi" />
+        {isLoading && (
+          <div className="chatDetailsLoader">
+            <SpinnerLoader size="30px" color="#57039a" />
+          </div>
+        )}
+        {messages.map((value, index) => (
+          <ChatMessage
+            key={value.id}
+            direction={value.direction}
+            messageText={value.message}
+          />
+        ))}
       </div>
       <div className="chatDetailsFooter">
         <div className="messageInput">

@@ -3,6 +3,7 @@ import authReducer from "./slices/authSlice";
 import createChatReducer from "./slices/createChatSlice";
 import globalReducer from "./slices/globalSlice";
 import chatSidebarReducer from "./slices/chatSidebarSlice";
+import chatMessagesReducer from "./slices/chatMessagesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     createChat: createChatReducer,
     global: globalReducer,
     chatSidebar: chatSidebarReducer,
+    chatMessages: chatMessagesReducer,
   },
 });
 

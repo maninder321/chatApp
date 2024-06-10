@@ -9,7 +9,7 @@ export interface ChatItem {
   id: number;
   name: string;
   lastMessage: string;
-  profileImgUrl: boolean;
+  profileImgUrl: string;
   unreadCount: number;
   timestamp: string;
 }
