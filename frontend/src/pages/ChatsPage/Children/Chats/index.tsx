@@ -7,7 +7,10 @@ import "./css/styles.css";
 import useGetChats from "./hooks/useGetChats";
 import InfiniteLoader from "../../../../components/InfiniteLoader";
 import { useNavigate, useParams } from "react-router-dom";
-import { setSelectedChat } from "../../../../redux/slices/chatSidebarSlice";
+import {
+  resetChats,
+  setSelectedChat,
+} from "../../../../redux/slices/chatSidebarSlice";
 import useGetMessages from "../ChatDetails/hooks/useGetMessages";
 
 function Chats() {
@@ -18,6 +21,7 @@ function Chats() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(resetChats());
     fetchChats();
   }, []);
 

@@ -104,6 +104,8 @@ class ChatListService
         $conversationUserMapping = $this->getConversationUsers([$chatId]);
         $conversationLastMessageMapping = $this->getConversationLastMessage([$chatId]);
 
+        Log::debug($conversationLastMessageMapping, $conversationUserMapping);
+
         $response = null;
 
         if (!empty($conversationUserMapping) && !empty($conversationLastMessageMapping)) {

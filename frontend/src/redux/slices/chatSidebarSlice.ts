@@ -34,11 +34,17 @@ export const chatSidebarSlice = createSlice({
         }
         return value;
       });
+      state.chatList = chatList;
     },
   },
 });
 
-export const { addChats, resetChats, setSelectedChat, resetSelectedChat } =
-  chatSidebarSlice.actions;
+export const {
+  addChats,
+  resetChats,
+  setSelectedChat,
+  resetSelectedChat,
+  updateChatMessageDetails,
+} = chatSidebarSlice.actions;
 
 export default chatSidebarSlice.reducer;

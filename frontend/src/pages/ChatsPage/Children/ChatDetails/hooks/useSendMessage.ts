@@ -4,11 +4,13 @@ import sendMessage, {
 } from "../../../../../services/chat/chatMessages/sendMessage";
 import { useAppDispatch } from "../../../../../redux/hooks";
 import { addMessagesToTop } from "../../../../../redux/slices/chatMessagesSlice";
+import useGetChatById from "../../Chats/hooks/useGetChatById";
+import { updateChatMessageDetails } from "../../../../../redux/slices/chatSidebarSlice";
 
 const useSendMessage = (successCallback?: Function) => {
   const dispatch = useAppDispatch();
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { fetchChatById } = useGetChatById();
 
   const sendChatMessage = useCallback(
     (payload: { chatId: number; message: string }) => {
@@ -22,6 +24,7 @@ const useSendMessage = (successCallback?: Function) => {
           if (successCallback) {
             successCallback();
           }
+          fetchChatById(payload.chatId);
           dispatch(addMessagesToTop(response));
           setIsLoading(false);
         })
