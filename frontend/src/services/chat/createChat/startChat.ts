@@ -15,7 +15,7 @@ async function startChat(payload: IStartChatPayload) {
     throw Error(response.data.statusCode);
   }
 
-  return response.data as IStartChatResponse;
+  return response.data.data as IStartChatResponse;
 }
 
 export default startChat;

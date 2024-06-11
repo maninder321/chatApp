@@ -76,38 +76,47 @@ class CreateConversationService
         $toUserId = $data["userId"];
         $message = $data["message"];
 
-        $conversationCreated = $this->conversatioinRepository->create(
-            [
-                ConversationKeys::CREATOR_ID => $createrId,
-                ConversationKeys::CONVERSATION_TYPE => $conversationType
-            ]
-        );
+        $chatAlreadyExists = $this->checkSingleChatAlreadyExists($createrId, $toUserId);
 
-        if (!$conversationCreated) {
-            return APIResponse::error(
-                message: "not able to created conversation",
-                httpCode: 200,
-                statusCode: CreateChatApiStatus::CONVERSATION_NOT_CREATED
+        if (!$chatAlreadyExists) {
+
+            $conversationCreated = $this->conversatioinRepository->create(
+                [
+                    ConversationKeys::CREATOR_ID => $createrId,
+                    ConversationKeys::CONVERSATION_TYPE => $conversationType
+                ]
             );
+
+            if (!$conversationCreated) {
+                return APIResponse::error(
+                    message: "not able to created conversation",
+                    httpCode: 200,
+                    statusCode: CreateChatApiStatus::CONVERSATION_NOT_CREATED
+                );
+            }
+
+            $conversationId = $conversationCreated;
+
+            $participantsAdded = $this->participantRepository->addParticipants(
+                $conversationId,
+                [
+                    $createrId,
+                    $toUserId
+                ]
+            );
+
+            if (!$participantsAdded) {
+                return APIResponse::error(
+                    message: "not able to add participants to chat",
+                    httpCode: 200,
+                    statusCode: CreateChatApiStatus::PARTICIPANTS_NOT_ADDED
+                );
+            }
+        } else {
+            $conversationId = $chatAlreadyExists;
         }
 
-        $conversationId = $conversationCreated;
 
-        $participantsAdded = $this->participantRepository->addParticipants(
-            $conversationId,
-            [
-                $createrId,
-                $toUserId
-            ]
-        );
-
-        if (!$participantsAdded) {
-            return APIResponse::error(
-                message: "not able to add participants to chat",
-                httpCode: 200,
-                statusCode: CreateChatApiStatus::PARTICIPANTS_NOT_ADDED
-            );
-        }
 
         $messageCreated = $this->conversationMessageRepository->create(
             [
@@ -130,5 +139,32 @@ class CreateConversationService
             statusCode: CreateChatApiStatus::CHAT_CREATED,
             data: ["id" => $conversationId]
         );
+    }
+
+    public function checkSingleChatAlreadyExists(
+        $userOne,
+        $userTwo
+    ) {
+
+        $sql = "
+            SELECT
+                participants.conversation_id
+            FROM
+                participants
+            WHERE
+                participants.user_id IN($userOne, $userTwo)
+            GROUP BY
+                participants.conversation_id
+            HAVING
+                COUNT(*) >= 2
+        ";
+
+        $result = DB::select($sql);
+
+        if (empty($result)) {
+            return false;
+        }
+
+        return $result[0]->conversation_id;
     }
 }

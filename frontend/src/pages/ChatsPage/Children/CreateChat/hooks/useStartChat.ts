@@ -4,11 +4,18 @@ import startChat, {
   IStartChatResponse,
 } from "../../../../../services/chat/createChat/startChat";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
+import useGetChatById from "../../Chats/hooks/useGetChatById";
+import { useNavigate } from "react-router-dom";
+import { resetChats } from "../../../../../redux/slices/chatSidebarSlice";
+import useGetChats from "../../Chats/hooks/useGetChats";
 
 const useStartChat = () => {
   const dispatch = useAppDispatch();
+  const { fetchChatById } = useGetChatById();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { fetchChats } = useGetChats();
+  const navigate = useNavigate();
 
   const createChat = useCallback(
     (userId: number, message: string) => {
@@ -26,7 +33,9 @@ const useStartChat = () => {
       };
       setIsLoading(true);
       startChat(payload)
-        .then((response) => {})
+        .then((response) => {
+          window.location.href = "/";
+        })
         .catch((error) => {
           console.log(error);
         })

@@ -16,7 +16,7 @@ const useGetMessages = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(false);
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(20);
   const offsetRef = useRef<number>(0);
 
   const handlePagination = useCallback((currentCount: number) => {

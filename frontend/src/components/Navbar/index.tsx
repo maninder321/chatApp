@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./css/styles.css";
 import { useAppDispatch } from "../../redux/hooks";
 import { toggleShowNotification } from "../../redux/slices/globalSlice";
+import { NameInitialsAvatar } from "react-name-initials-avatar";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -16,7 +17,16 @@ function Navbar() {
             {/* <i className="fa-brands fa-rocketchat"></i> */}
           </div>
           <div className="profile mt-2">
-            <img src="https://picsum.photos/id/237/200/300" />
+            <div className="avatar">
+              <NameInitialsAvatar
+                name={"Hello Sing".toUpperCase()}
+                size="55px"
+                bgColor={"#EBD4FD"}
+                textColor={"#57039a"}
+                borderColor={"#EBD4FD"}
+                textSize="25px"
+              />
+            </div>
             <div className="activeStatus online"></div>
           </div>
           <div className="navItems my-4">
@@ -37,7 +47,7 @@ function Navbar() {
               <i className="fa-solid fa-house-chimney"></i>
               {/* <i className="fa-solid fa-inbox"></i> */}
             </div>
-            <div
+            {/* <div
               className="navItem"
               onClick={(e) => {
                 e.stopPropagation();
@@ -53,7 +63,7 @@ function Navbar() {
               }}
             >
               <i className="fa-solid fa-gear"></i>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="extraNavItems my-4">

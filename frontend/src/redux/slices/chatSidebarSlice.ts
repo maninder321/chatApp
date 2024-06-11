@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IGetChatsResponse } from "../../services/chat/chatSidebar/getChats";
+import {
+  ChatItem,
+  IGetChatsResponse,
+} from "../../services/chat/chatSidebar/getChats";
 
 interface IChatSidebarSlice {
   chatList: IGetChatsResponse["chats"];
@@ -16,7 +19,11 @@ export const chatSidebarSlice = createSlice({
   initialState,
   reducers: {
     addChats(state, action) {
-      state.chatList = [...state.chatList, ...action.payload];
+      let chatList = [...state.chatList, ...action.payload];
+      chatList.sort((a: ChatItem, b: ChatItem) => {
+        return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+      });
+      state.chatList = chatList;
     },
     resetChats(state) {
       state.chatList = [];
@@ -28,11 +35,17 @@ export const chatSidebarSlice = createSlice({
       state.selectedChat = null;
     },
     updateChatMessageDetails(state, action) {
-      let chatList = state.chatList.map((value, index) => {
+      let chatList: ChatItem[] = [];
+
+      chatList = state.chatList.map((value, index) => {
         if (value.id == action.payload.id) {
           return action.payload;
         }
         return value;
+      });
+
+      chatList.sort((a: ChatItem, b: ChatItem) => {
+        return Date.parse(b.timestamp) - Date.parse(a.timestamp);
       });
       state.chatList = chatList;
     },

@@ -1,3 +1,4 @@
+import { NameInitialsAvatar } from "react-name-initials-avatar";
 import "./css/styles.css";
 
 function ChatMessage({
@@ -14,7 +15,15 @@ function ChatMessage({
       }`}
     >
       <div className="messageProfile">
-        <img src="https://picsum.photos/id/237/200/300"></img>
+        <div className="avatar">
+          <NameInitialsAvatar
+            name={"Hello Sing".toUpperCase()}
+            size="40px"
+            bgColor={"#EBD4FD"}
+            textColor={"#57039a"}
+            borderColor={"#EBD4FD"}
+          />
+        </div>
       </div>
       <div className={`messageText ${direction}`}>{messageText}</div>
     </div>

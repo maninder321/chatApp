@@ -1,4 +1,9 @@
-import { defaultProfileImage } from "../../../../../../utils/ProfileUtility";
+import { NameInitialsAvatar } from "react-name-initials-avatar";
+import {
+  defaultProfileImage,
+  getRandomColor,
+} from "../../../../../../utils/ProfileUtility";
+import { convertGMTToLocal } from "../../../../../../utils/TimeUtility";
 import "./css/styles.css";
 
 function ChatItem({
@@ -24,7 +29,16 @@ function ChatItem({
       }}
     >
       <div className="userAvatar">
-        <img src={defaultProfileImage()} alt="" />
+        <div className="initial">
+          <NameInitialsAvatar
+            name={title.toUpperCase()}
+            size="60px"
+            bgColor={"#EBD4FD"}
+            textColor={"#57039a"}
+            borderColor={"#EBD4FD"}
+          />
+        </div>
+        {/* <img src={defaultProfileImage()} alt="" /> */}
       </div>
       <div className="chatItemDetails">
         <div className="chatItemTitle">{title}</div>
@@ -34,7 +48,7 @@ function ChatItem({
       </div>
       <div className="chatExtraDetails">
         <div className={`chatTimestamp ${active ? "activeChatTimestamp" : ""}`}>
-          {timestamp}
+          {convertGMTToLocal(timestamp)}
         </div>
         {unreadCount > 0 && (
           <div className={`unreadCount ${active ? "activeUnreadCount" : ""}`}>

@@ -7,6 +7,8 @@ import { useAppDispatch } from "../../../../redux/hooks";
 import { resetMessages } from "../../../../redux/slices/chatMessagesSlice";
 import SpinnerLoader from "../../../../components/SpinnerLoader";
 import useSendMessage from "./hooks/useSendMessage";
+import InfiniteLoader from "../../../../components/InfiniteLoader";
+import { NameInitialsAvatar } from "react-name-initials-avatar";
 
 let controller: AbortController;
 
@@ -42,7 +44,16 @@ function ChatDetails() {
     <div className="chatDetailsWrapper">
       <div className="chatDetailsHeader">
         <div className="headerProfileImg">
-          <img src="https://picsum.photos/id/237/200/300" alt="" />
+          <div className="avatar">
+            <NameInitialsAvatar
+              name={"Hello Sing".toUpperCase()}
+              size="65px"
+              bgColor={"#EBD4FD"}
+              textColor={"#57039a"}
+              borderColor={"#EBD4FD"}
+              textSize="25px"
+            />
+          </div>
         </div>
         <div className="headerProfileDetails">
           <span className="username">Maninder Singh</span>
@@ -65,6 +76,19 @@ function ChatDetails() {
             messageText={value.message}
           />
         ))}
+        {
+          <div className="mt-5">
+            <InfiniteLoader
+              hasMore={hasMore}
+              loadDataCallback={() => {
+                console.log(chatId);
+                if (chatId) {
+                  fetchMessages(+chatId, controller.signal);
+                }
+              }}
+            />
+          </div>
+        }
       </div>
       <div className="chatDetailsFooter">
         <div className="messageInput">

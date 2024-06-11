@@ -6,6 +6,7 @@
   width: fit-content;
   min-height: 40px;
   border-radius: 20px;
+  word-break: break-all;
 }
 
 .messageTextWrapper {
@@ -36,7 +37,7 @@
   margin: 0px 10px;
 }
 
-.messageProfile img {
+.messageProfile .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
