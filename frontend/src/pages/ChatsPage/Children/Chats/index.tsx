@@ -21,6 +21,12 @@ function Chats() {
     fetchChats();
   }, []);
 
+  useEffect(() => {
+    if (!chatId && chats.length > 0) {
+      navigate("/" + chats[0].id);
+    }
+  }, [chatId, chats]);
+
   return (
     <div className="chatsWrapper">
       <div className="title">

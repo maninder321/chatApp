@@ -27,6 +27,14 @@ export const chatSidebarSlice = createSlice({
     resetSelectedChat(state) {
       state.selectedChat = null;
     },
+    updateChatMessageDetails(state, action) {
+      let chatList = state.chatList.map((value, index) => {
+        if (value.id == action.payload.id) {
+          return action.payload;
+        }
+        return value;
+      });
+    },
   },
 });
 

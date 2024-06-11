@@ -50,6 +50,8 @@ class ChatListService
                 participants.deleted = 0
                 AND
                 conversations.deleted = 0
+            ORDER BY
+                updated_at_gmt DESC
             LIMIT ? OFFSET ?
         ";
 
@@ -87,6 +89,38 @@ class ChatListService
             metaData: [
                 "count" => count($conversations)
             ],
+            data: $response
+        );
+    }
+
+    public function getChat($data)
+    {
+        $chatId = $data["chatId"];
+
+        $this->currentUser = $this->getLoggedUser();
+
+        $currentUser = $this->currentUser->id;
+
+        $conversationUserMapping = $this->getConversationUsers([$chatId]);
+        $conversationLastMessageMapping = $this->getConversationLastMessage([$chatId]);
+
+        $response = null;
+
+        if (!empty($conversationUserMapping) && !empty($conversationLastMessageMapping)) {
+            $lastMessage = $conversationLastMessageMapping[$chatId];
+
+            $response = [
+                "id" => $chatId,
+                "name" => $conversationUserMapping[$chatId]->name,
+                "lastMessage" => $lastMessage->message_text,
+                "timestamp" => $lastMessage->created_at_gmt,
+                "unreadCount" => 0
+            ];
+        }
+
+
+        return APIResponse::success(
+            message: "chat details",
             data: $response
         );
     }

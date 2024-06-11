@@ -35,4 +35,22 @@ class ChatSidebarController extends Controller
 
         return $this->chatListService->getUserChats($data);
     }
+
+    public function chatByIdHandler(Request $request)
+    {
+        $data = $request->input();
+
+        // Validate request data
+        $validator = Validator::make($data, [
+            'chatId' => 'required|numeric',
+        ]);
+
+        // If validation fails, return error response
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+            return APIResponse::error($errorMessage);
+        }
+
+        return $this->chatListService->getChat($data);
+    }
 }

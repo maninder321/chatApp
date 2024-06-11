@@ -62,6 +62,8 @@ class ConversationRepository
             return false;
         }
 
+        $payload[ConversationKeys::UPDATED_AT_GMT] = DateTimeUtility::getTimeStamp('GMT');
+
         // Map payload data to model attributes
         $this->modelMapper($payload, $conversation);
 

@@ -48,7 +48,7 @@ const useGetMessages = () => {
         })
         .catch((error) => {
           if (error instanceof CanceledError) {
-            setIsLoading(true);
+            return;
           } else {
             setIsLoading(false);
           }

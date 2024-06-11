@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ChatMessage from "./Children/ChatMessage";
 import "./css/styles.css";
 import useGetMessages from "./hooks/useGetMessages";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { resetMessages } from "../../../../redux/slices/chatMessagesSlice";
 import SpinnerLoader from "../../../../components/SpinnerLoader";
+import useSendMessage from "./hooks/useSendMessage";
 
 let controller: AbortController;
 
@@ -14,6 +15,14 @@ function ChatDetails() {
     useGetMessages();
   const { chatId } = useParams();
   const dispatch = useAppDispatch();
+  const [message, setMessage] = useState<string>("");
+
+  const success = useCallback(() => {
+    setMessage("");
+  }, [setMessage]);
+
+  const { isLoading: isSendMessageLoading, sendChatMessage } =
+    useSendMessage(success);
 
   useEffect(() => {
     if (chatId) {
@@ -63,12 +72,30 @@ function ChatDetails() {
             type="text"
             placeholder="Type Message Here"
             className="form-control"
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
           />
           <i className="fa-solid fa-paperclip"></i>
         </div>
-        <div className="sendButton">
-          <i className="fa-solid fa-circle-arrow-right"></i>
-        </div>
+
+        {isSendMessageLoading ? (
+          <div className="sendChatMessageButtonLoader">
+            <SpinnerLoader size="35px" color="#57039a" />
+          </div>
+        ) : (
+          <div
+            className="sendButton"
+            onClick={() => {
+              if (chatId) {
+                sendChatMessage({ chatId: +chatId, message: message });
+              }
+            }}
+          >
+            <i className="fa-solid fa-circle-arrow-right"></i>
+          </div>
+        )}
       </div>
     </div>
   );

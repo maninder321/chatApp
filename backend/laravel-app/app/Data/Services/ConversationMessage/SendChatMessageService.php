@@ -11,6 +11,7 @@ namespace App\Data\Services\ConversationMessage;
 
 use App\Data\Helpers\APIResponse;
 use App\Data\Keys\ConversationMessage\ConversationMessageKeys;
+use App\Data\Repositories\Conversation\ConversationRepository;
 use App\Data\Repositories\ConversationMessage\ConversationMessageRepository;
 use App\Data\Traits\CurrentLoggedUser;
 
@@ -19,10 +20,12 @@ class SendChatMessageService
     use CurrentLoggedUser;
 
     private $conversationMessageRepository = null;
+    private $conversationRepository = null;
 
     public function __construct()
     {
         $this->conversationMessageRepository = new ConversationMessageRepository();
+        $this->conversationRepository = new ConversationRepository();
     }
 
     public function sendChatMessage($data)
@@ -30,7 +33,7 @@ class SendChatMessageService
         $chatId = $data["chatId"];
         $message = $data["message"];
 
-        $conversationCreated = $this->conversationMessageRepository->create(
+        $conversationMessageCreated = $this->conversationMessageRepository->create(
             [
                 ConversationMessageKeys::CONVERSATION_ID => $chatId,
                 ConversationMessageKeys::SENDER_ID => $this->getLoggedUser()->id,
@@ -38,15 +41,20 @@ class SendChatMessageService
             ]
         );
 
-        if (!$conversationCreated) {
+        if (!$conversationMessageCreated) {
             return APIResponse::error(
                 message: "Failed to send message",
                 httpCode: 200
             );
         }
 
+        $this->conversationRepository->update($chatId, []);
+
         $response = [
-            "id" => $conversationCreated
+            "id" => $conversationMessageCreated->id,
+            "message" => $conversationMessageCreated->message_text,
+            "direction" => "out",
+            "createdAtGmt" => $conversationMessageCreated->created_at_gmt
         ];
 
         return APIResponse::success(

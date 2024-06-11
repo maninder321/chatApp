@@ -25,7 +25,7 @@ class ConversationMessageRepository
      * Create a new conversationMessage.
      *
      * @param array $payload The conversationMessage data.
-     * @return bool|int Whether the conversationMessage was successfully created.
+     * @return bool|CoversationMessage Whether the conversationMessage was successfully created.
      */
     public function create($payload)
     {
@@ -52,7 +52,7 @@ class ConversationMessageRepository
         // Save the conversationMessage model
         $created = $model->save();
 
-        return $created ? $model->id : false;
+        return $created ? $model : false;
     }
 
     /**

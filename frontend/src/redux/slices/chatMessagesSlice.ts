@@ -10,7 +10,7 @@ const initialState: IChatMessagesSlice = {
 };
 
 export const chatMessagesSlice = createSlice({
-  name: "chatSidebar",
+  name: "chatMessages",
   initialState,
   reducers: {
     addMessages(state, action) {
@@ -19,9 +19,13 @@ export const chatMessagesSlice = createSlice({
     resetMessages(state) {
       state.messageList = [];
     },
+    addMessagesToTop(state, action) {
+      state.messageList = [action.payload, ...state.messageList];
+    },
   },
 });
 
-export const { addMessages, resetMessages } = chatMessagesSlice.actions;
+export const { addMessages, resetMessages, addMessagesToTop } =
+  chatMessagesSlice.actions;
 
 export default chatMessagesSlice.reducer;
