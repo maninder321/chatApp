@@ -13,8 +13,14 @@ import { NameInitialsAvatar } from "react-name-initials-avatar";
 let controller: AbortController;
 
 function ChatDetails() {
-  const { isLoading, fetchMessages, hasMore, messages, resetPagination } =
-    useGetMessages();
+  const {
+    isLoading,
+    fetchMessages,
+    hasMore,
+    messages,
+    resetPagination,
+    isLoadingRef,
+  } = useGetMessages();
   const { chatId } = useParams();
   const dispatch = useAppDispatch();
   const [message, setMessage] = useState<string>("");
@@ -28,6 +34,9 @@ function ChatDetails() {
 
   useEffect(() => {
     if (chatId) {
+      console.log(chatId);
+      console.log(controller);
+      isLoadingRef.current = false;
       dispatch(resetMessages());
       resetPagination();
       controller = new AbortController();
@@ -64,7 +73,7 @@ function ChatDetails() {
         </div>
       </div>
       <div className="chatDetailsMain pt-3">
-        {isLoading && (
+        {isLoading && messages.length == 0 && (
           <div className="chatDetailsLoader">
             <SpinnerLoader size="30px" color="#57039a" />
           </div>
@@ -76,8 +85,8 @@ function ChatDetails() {
             messageText={value.message}
           />
         ))}
-        {
-          <div className="mt-5">
+        {messages.length > 0 && (
+          <div>
             <InfiniteLoader
               hasMore={hasMore}
               loadDataCallback={() => {
@@ -88,7 +97,7 @@ function ChatDetails() {
               }}
             />
           </div>
-        }
+        )}
       </div>
       <div className="chatDetailsFooter">
         <div className="messageInput">

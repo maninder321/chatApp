@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import getMessages, {
   IGetMessagesPayload,
   IGetMessagesResponse,
@@ -15,6 +15,7 @@ const useGetMessages = () => {
   const messages = useAppSelector((state) => state.chatMessages.messageList);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const isLoadingRef = useRef<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [limit, setLimit] = useState<number>(20);
   const offsetRef = useRef<number>(0);
@@ -30,9 +31,9 @@ const useGetMessages = () => {
 
   const fetchMessages = useCallback(
     (chatId: number, signal: AbortSignal) => {
-      // if (isLoading) {
-      //   return;
-      // }
+      if (isLoadingRef.current) {
+        return;
+      }
 
       let payload: IGetMessagesPayload = {
         chatId: chatId,
@@ -40,17 +41,20 @@ const useGetMessages = () => {
         limit: limit,
       };
       setIsLoading(true);
+      isLoadingRef.current = true;
       getMessages(payload, signal)
         .then((response) => {
           dispatch(addMessages(response.messages));
           handlePagination(response.metaData.count);
           setIsLoading(false);
+          isLoadingRef.current = false;
         })
         .catch((error) => {
           if (error instanceof CanceledError) {
             return;
           } else {
             setIsLoading(false);
+            isLoadingRef.current = false;
           }
         });
     },
@@ -67,6 +71,7 @@ const useGetMessages = () => {
     fetchMessages,
     hasMore,
     resetPagination,
+    isLoadingRef,
   };
 };
 
