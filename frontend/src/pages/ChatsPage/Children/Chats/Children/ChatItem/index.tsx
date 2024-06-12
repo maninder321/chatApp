@@ -36,6 +36,7 @@ function ChatItem({
             bgColor={"#EBD4FD"}
             textColor={"#57039a"}
             borderColor={"#EBD4FD"}
+            textSize="23px"
           />
         </div>
         {/* <img src={defaultProfileImage()} alt="" /> */}

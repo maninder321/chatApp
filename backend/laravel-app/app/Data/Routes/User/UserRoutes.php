@@ -25,6 +25,7 @@ class UserRoutes
     public static function authProtectedRoutes()
     {
         Route::post("checkTokenValid", [UserAuthController::class, "checkTokenValidHanlder"]);
+        Route::post("getConfig", [UserAuthController::class, "getConfigHandler"]);
     }
 
     public static function verificationRoutes()

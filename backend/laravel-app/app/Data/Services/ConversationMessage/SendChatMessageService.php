@@ -14,6 +14,7 @@ use App\Data\Keys\ConversationMessage\ConversationMessageKeys;
 use App\Data\Repositories\Conversation\ConversationRepository;
 use App\Data\Repositories\ConversationMessage\ConversationMessageRepository;
 use App\Data\Traits\CurrentLoggedUser;
+use App\Events\NewMessageEvent;
 
 class SendChatMessageService
 {
@@ -56,6 +57,8 @@ class SendChatMessageService
             "direction" => "out",
             "createdAtGmt" => $conversationMessageCreated->created_at_gmt
         ];
+
+        NewMessageEvent::dispatch("user-channel-7");
 
         return APIResponse::success(
             message: "message sent",

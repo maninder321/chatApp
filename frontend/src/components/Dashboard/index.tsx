@@ -6,9 +6,16 @@ import {
   hideShowNotification,
   toggleShowNotification,
 } from "../../redux/slices/globalSlice";
+import usePusher from "../../hooks/usePusher";
+import { useEffect } from "react";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
+  const { setupPusher } = usePusher();
+
+  useEffect(() => {
+    setupPusher();
+  }, []);
 
   return (
     <div
