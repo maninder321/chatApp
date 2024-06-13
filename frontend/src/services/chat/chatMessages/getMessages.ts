@@ -15,6 +15,11 @@ export interface MessageItem {
 }
 
 export interface IGetMessagesResponse {
+  userDetails: {
+    id: number;
+    name: string;
+    isActive: boolean;
+  };
   messages: MessageItem[];
   metaData: {
     count: number;
@@ -31,7 +36,8 @@ async function getMessages(payload: IGetMessagesPayload, signal: AbortSignal) {
 
   let formattedResponse: any = {};
 
-  formattedResponse.messages = response.data.data;
+  formattedResponse.messages = response.data.data.messages;
+  formattedResponse.userDetails = response.data.data.userDetails;
   formattedResponse.metaData = response.data.metaData;
 
   return formattedResponse as IGetMessagesResponse;

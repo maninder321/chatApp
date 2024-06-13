@@ -9,9 +9,14 @@ const useStoredAuth = () => {
     window.localStorage.setItem("chat_app_token", token);
   }, []);
 
+  const clearToken = useCallback(() => {
+    window.localStorage.removeItem("chat_app_token");
+  }, []);
+
   return {
     getToken,
     setToken,
+    clearToken,
   };
 };
 export default useStoredAuth;

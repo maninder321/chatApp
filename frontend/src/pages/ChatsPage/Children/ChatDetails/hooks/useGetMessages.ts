@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import {
   addMessages,
   resetMessages,
+  setActiveChatDetails,
 } from "../../../../../redux/slices/chatMessagesSlice";
 import { CanceledError } from "axios";
 
@@ -44,6 +45,7 @@ const useGetMessages = () => {
       isLoadingRef.current = true;
       getMessages(payload, signal)
         .then((response) => {
+          dispatch(setActiveChatDetails(response.userDetails));
           dispatch(addMessages(response.messages));
           handlePagination(response.metaData.count);
           setIsLoading(false);

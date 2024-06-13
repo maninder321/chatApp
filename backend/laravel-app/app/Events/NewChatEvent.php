@@ -35,4 +35,12 @@ class NewChatEvent implements ShouldBroadcast
             $this->channelName,
         ];
     }
+
+    /**
+     * The event's broadcast name.
+     */
+    public function broadcastAs(): string
+    {
+        return 'new-chat';
+    }
 }

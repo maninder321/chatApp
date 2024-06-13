@@ -13,6 +13,7 @@ use App\Data\Helpers\APIResponse;
 use App\Data\Keys\ConversationMessage\ConversationMessageKeys;
 use App\Data\Repositories\Conversation\ConversationRepository;
 use App\Data\Repositories\ConversationMessage\ConversationMessageRepository;
+use App\Data\Services\Conversation\ConversationService;
 use App\Data\Traits\CurrentLoggedUser;
 use App\Events\NewMessageEvent;
 
@@ -22,11 +23,13 @@ class SendChatMessageService
 
     private $conversationMessageRepository = null;
     private $conversationRepository = null;
+    private $conversationService = null;
 
     public function __construct()
     {
         $this->conversationMessageRepository = new ConversationMessageRepository();
         $this->conversationRepository = new ConversationRepository();
+        $this->conversationService = new ConversationService();
     }
 
     public function sendChatMessage($data)
@@ -58,7 +61,20 @@ class SendChatMessageService
             "createdAtGmt" => $conversationMessageCreated->created_at_gmt
         ];
 
-        NewMessageEvent::dispatch("user-channel-7");
+        $toUser = $this->conversationService->getSingleChatOtherUser($chatId);
+
+        if ($toUser) {
+
+            $payload = [
+                "chatId" => $chatId,
+                "messageId" => $conversationMessageCreated->id,
+                "message" => $conversationMessageCreated->message_text,
+                "direction" => "in",
+                "createdAtGmt" => $conversationMessageCreated->created_at_gmt
+            ];
+
+            NewMessageEvent::dispatch("user-channel-" . $toUser, $payload);
+        }
 
         return APIResponse::success(
             message: "message sent",

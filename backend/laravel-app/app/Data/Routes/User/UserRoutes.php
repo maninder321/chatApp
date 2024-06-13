@@ -26,6 +26,8 @@ class UserRoutes
     {
         Route::post("checkTokenValid", [UserAuthController::class, "checkTokenValidHanlder"]);
         Route::post("getConfig", [UserAuthController::class, "getConfigHandler"]);
+        Route::post("getCurrentUser", [UserAuthController::class, "getCurrentUserHandler"]);
+        Route::post("logout", [UserAuthController::class, "logoutHandler"]);
     }
 
     public static function verificationRoutes()

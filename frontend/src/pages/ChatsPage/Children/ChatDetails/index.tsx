@@ -3,7 +3,7 @@ import ChatMessage from "./Children/ChatMessage";
 import "./css/styles.css";
 import useGetMessages from "./hooks/useGetMessages";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { resetMessages } from "../../../../redux/slices/chatMessagesSlice";
 import SpinnerLoader from "../../../../components/SpinnerLoader";
 import useSendMessage from "./hooks/useSendMessage";
@@ -32,6 +32,10 @@ function ChatDetails() {
   const { isLoading: isSendMessageLoading, sendChatMessage } =
     useSendMessage(success);
 
+  const activeChatUserDetails = useAppSelector(
+    (state) => state.chatMessages.activeChatUserDetails
+  );
+
   useEffect(() => {
     if (chatId) {
       console.log(chatId);
@@ -55,7 +59,11 @@ function ChatDetails() {
         <div className="headerProfileImg">
           <div className="avatar">
             <NameInitialsAvatar
-              name={"Hello Sing".toUpperCase()}
+              name={
+                activeChatUserDetails
+                  ? activeChatUserDetails?.name.toUpperCase()
+                  : "Default"
+              }
               size="65px"
               bgColor={"#EBD4FD"}
               textColor={"#57039a"}
@@ -65,8 +73,10 @@ function ChatDetails() {
           </div>
         </div>
         <div className="headerProfileDetails">
-          <span className="username">Maninder Singh</span>
-          <span className="activityStatus">Online</span>
+          <span className="username">{activeChatUserDetails?.name}</span>
+          <span className="activityStatus">
+            {activeChatUserDetails?.isActive ? "Online" : "Offline"}
+          </span>
         </div>
         <div className="headerOptions">
           <i className="fa-solid fa-ellipsis"></i>

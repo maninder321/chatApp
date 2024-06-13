@@ -16,6 +16,7 @@ use App\Data\Services\User\RegisterUserService;
 use App\Data\Services\User\UserVerificationService;
 use App\Data\Traits\CurrentLoggedUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserAuthController extends Controller
@@ -132,5 +133,32 @@ class UserAuthController extends Controller
         ];
 
         return APIResponse::success(message: "fetched config details", data: $response);
+    }
+
+    public function getCurrentUserHandler(Request $request)
+    {
+        $user = $this->getLoggedUser();
+
+        $response = [
+            "id" => $user->id,
+            "name" => $user->name
+        ];
+
+        return APIResponse::success(message: "fetched current user details", data: $response);
+    }
+
+    public function logoutHandler(Request $request)
+    {
+        $user = $this->getLoggedUser();
+
+        $sql = "
+            Update oauth_access_tokens SET revoked = 1 WHERE user_id = ?
+            ";
+
+        $updated = DB::statement($sql, [$user->id]);
+
+        return APIResponse::success(message: "user logged out", data: [
+            "loggedOut" => $updated
+        ]);
     }
 }

@@ -1,12 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import "./css/styles.css";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { toggleShowNotification } from "../../redux/slices/globalSlice";
 import { NameInitialsAvatar } from "react-name-initials-avatar";
+import useUserLogout from "./hooks/useUserLogout";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { isLoading, logout } = useUserLogout();
+  const currentUserDetails = useAppSelector(
+    (state) => state.global.currentUserDetails
+  );
 
   return (
     <>
@@ -19,7 +24,11 @@ function Navbar() {
           <div className="profile mt-2">
             <div className="avatar">
               <NameInitialsAvatar
-                name={"Hello Sing".toUpperCase()}
+                name={
+                  currentUserDetails
+                    ? currentUserDetails.name.toUpperCase()
+                    : "Default"
+                }
                 size="55px"
                 bgColor={"#EBD4FD"}
                 textColor={"#57039a"}
@@ -67,7 +76,12 @@ function Navbar() {
           </div>
         </div>
         <div className="extraNavItems my-4">
-          <div className="navItem">
+          <div
+            className="navItem"
+            onClick={() => {
+              logout();
+            }}
+          >
             <i className="fa-solid fa-right-from-bracket"></i>
           </div>
         </div>

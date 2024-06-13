@@ -27,6 +27,7 @@ function Chats() {
 
   useEffect(() => {
     if (!chatId && chats.length > 0) {
+      dispatch(setSelectedChat(chats[0].id));
       navigate("/" + chats[0].id);
     }
   }, [chatId, chats]);
@@ -57,6 +58,7 @@ function Chats() {
               unreadCount={value.unreadCount}
               onChatClick={() => {
                 resetPagination();
+                dispatch(setSelectedChat(value.id));
                 navigate("/" + value.id);
               }}
             />

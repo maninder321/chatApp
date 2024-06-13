@@ -10,17 +10,23 @@
 namespace App\Data\Services\ConversationMessage;
 
 use App\Data\Helpers\APIResponse;
+use App\Data\Repositories\User\UserRepository;
+use App\Data\Services\Conversation\ConversationService;
 use App\Data\Traits\CurrentLoggedUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class GetMessageListService
 {
-
     use CurrentLoggedUser;
+
+    private $conversationService = null;
+    private $userRepository = null;
 
     public function __construct()
     {
+        $this->conversationService = new ConversationService();
+        $this->userRepository = new UserRepository();
     }
 
     public function getChatMessages($data)
@@ -69,12 +75,25 @@ class GetMessageListService
             ];
         }
 
+        $toUser = $this->conversationService->getSingleChatOtherUser($chatId);
+
+        $user = $this->userRepository->getById($toUser);
+
+        $userDetails = [];
+
+        $userDetails["id"] = $user->id;
+        $userDetails["name"] = $user->name;
+        $userDetails["isActive"] = false;
+
         return APIResponse::success(
             message: "chat messages fetched",
             metaData: [
                 "count" => count($chatMessages)
             ],
-            data: $response
+            data: [
+                "userDetails" => $userDetails,
+                "messages" => $response
+            ]
         );
     }
 }

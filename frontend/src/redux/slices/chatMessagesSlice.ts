@@ -3,16 +3,24 @@ import { IGetMessagesResponse } from "../../services/chat/chatMessages/getMessag
 
 interface IChatMessagesSlice {
   messageList: IGetMessagesResponse["messages"];
+  activeChatUserDetails: IGetMessagesResponse["userDetails"] | null;
 }
 
 const initialState: IChatMessagesSlice = {
   messageList: [],
+  activeChatUserDetails: null,
 };
 
 export const chatMessagesSlice = createSlice({
   name: "chatMessages",
   initialState,
   reducers: {
+    setActiveChatDetails(state, action) {
+      state.activeChatUserDetails = action.payload;
+    },
+    resetActiveChatDetails(state) {
+      state.activeChatUserDetails = null;
+    },
     addMessages(state, action) {
       state.messageList = [...state.messageList, ...action.payload];
     },
@@ -25,7 +33,12 @@ export const chatMessagesSlice = createSlice({
   },
 });
 
-export const { addMessages, resetMessages, addMessagesToTop } =
-  chatMessagesSlice.actions;
+export const {
+  addMessages,
+  resetMessages,
+  addMessagesToTop,
+  setActiveChatDetails,
+  resetActiveChatDetails,
+} = chatMessagesSlice.actions;
 
 export default chatMessagesSlice.reducer;
