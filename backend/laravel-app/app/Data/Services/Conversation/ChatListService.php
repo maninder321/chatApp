@@ -127,7 +127,7 @@ class ChatListService
         );
     }
 
-    private function getConversationUsers($conversationIds)
+    public function getConversationUsers($conversationIds)
     {
 
         $conversationIdsString = implode(",", $conversationIds);
@@ -163,7 +163,7 @@ class ChatListService
         return $mapping;
     }
 
-    private function getConversationLastMessage($conversationIds)
+    public function getConversationLastMessage($conversationIds)
     {
 
         $conversationIdsString = implode(",", $conversationIds);
