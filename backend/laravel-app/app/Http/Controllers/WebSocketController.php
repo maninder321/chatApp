@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\Keys\User\UserKeys;
 use App\Data\Repositories\User\UserRepository;
+use App\Events\OnlineOfflineEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -34,5 +35,7 @@ class WebSocketController extends Controller
                 UserKeys::IS_USER_ONLINE => $isOnline
             ]
         );
+
+        OnlineOfflineEvent::dispatch(["id" => $userId, "isActive" => $isOnline ? true : false]);
     }
 }

@@ -21,6 +21,14 @@ export const chatMessagesSlice = createSlice({
     resetActiveChatDetails(state) {
       state.activeChatUserDetails = null;
     },
+    updateActiveChatDetails(state, action) {
+      if (
+        state.activeChatUserDetails &&
+        state.activeChatUserDetails.id == action.payload.id
+      ) {
+        state.activeChatUserDetails.isActive = action.payload.isActive;
+      }
+    },
     addMessages(state, action) {
       state.messageList = [...state.messageList, ...action.payload];
     },
@@ -39,6 +47,7 @@ export const {
   addMessagesToTop,
   setActiveChatDetails,
   resetActiveChatDetails,
+  updateActiveChatDetails,
 } = chatMessagesSlice.actions;
 
 export default chatMessagesSlice.reducer;

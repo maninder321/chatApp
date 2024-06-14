@@ -4,7 +4,10 @@ import { useCallback, useEffect, useRef } from "react";
 import getConfig from "../services/user/getConfig";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { addMessagesToTop } from "../redux/slices/chatMessagesSlice";
+import {
+  addMessagesToTop,
+  updateActiveChatDetails,
+} from "../redux/slices/chatMessagesSlice";
 import {
   bindEvent,
   setPusher,
@@ -21,6 +24,7 @@ const usePusher = () => {
   const { chatId } = useParams();
   const chatIdRef = useRef(chatId);
   const channelRef = useRef<Channel | null>(null);
+  const gloablChannelRef = useRef<Channel | null>(null);
   const dispatch = useAppDispatch();
   const channelNameRef = useRef<string>("");
 
@@ -58,6 +62,15 @@ const usePusher = () => {
     );
   }, []);
 
+  const onlineOfflineHandler = useCallback((data: any) => {
+    dispatch(
+      updateActiveChatDetails({
+        id: data.id,
+        isActive: data.isActive,
+      })
+    );
+  }, []);
+
   useEffect(() => {
     console.log("setting pusher");
     setupPusher();
@@ -79,9 +92,17 @@ const usePusher = () => {
         setPusher(response.pusherKey, response.pusherCluster);
         channelNameRef.current = response.userPusherChannel;
         channelRef.current = subscribeChannel(response.userPusherChannel);
+        gloablChannelRef.current = subscribeChannel("user-global-channel");
         if (channelRef.current) {
           bindEvent(channelRef.current, "new-message", newMessageHandler);
           bindEvent(channelRef.current, "new-chat", newChatHandler);
+        }
+        if (gloablChannelRef.current) {
+          bindEvent(
+            gloablChannelRef.current,
+            "online-offline",
+            onlineOfflineHandler
+          );
         }
       })
       .catch();
@@ -91,7 +112,11 @@ const usePusher = () => {
     if (channelNameRef.current.length > 0 && channelRef.current) {
       unbindEvent(channelRef.current, "new-message");
       unbindEvent(channelRef.current, "new-chat");
+
       unsubscribeChannel(channelNameRef.current);
+    }
+    if (gloablChannelRef.current) {
+      unbindEvent(gloablChannelRef.current, "online-offline");
     }
   }, []);
 
