@@ -83,7 +83,7 @@ class GetMessageListService
 
         $userDetails["id"] = $user->id;
         $userDetails["name"] = $user->name;
-        $userDetails["isActive"] = false;
+        $userDetails["isActive"] = $user->is_user_online;
 
         return APIResponse::success(
             message: "chat messages fetched",

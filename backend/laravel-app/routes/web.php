@@ -2,6 +2,7 @@
 
 use App\Data\Routes\Chat\ChatRoutes;
 use App\Data\Routes\User\UserRoutes;
+use App\Http\Controllers\WebSocketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,5 @@ Route::group(['prefix' => 'user'], function () {
         UserRoutes::forgotPasswordRoutes();
     });
 });
+
+Route::post("/channelExistence", [WebSocketController::class, "onlineOfflineHandler"]);
