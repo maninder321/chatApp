@@ -28,13 +28,17 @@ const useSearchChats = () => {
   }, []);
 
   const fetchSearchChats = useCallback(
-    (searchText: string) => {
+    (
+      searchText: string,
+      inputStart: number | null = null,
+      inputLimit: number | null = null
+    ) => {
       if (isLoading) {
         return;
       }
       let payload: ISearchChatsPayload = {
-        start: offset,
-        limit: limit,
+        start: inputStart !== null ? inputStart : offset,
+        limit: inputLimit ? inputLimit : limit,
         searchText: searchText,
       };
       setIsLoading(true);

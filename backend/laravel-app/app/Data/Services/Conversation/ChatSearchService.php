@@ -39,7 +39,7 @@ class ChatSearchService
         $currentUser = $this->currentUser->id;
 
         $sql = "
-            SELECT * FROM conversations
+            SELECT conversations.* FROM conversations
             INNER JOIN participants ON conversations.id = participants.conversation_id AND participants.user_id <> $currentUser
             INNER JOIN users ON participants.user_id = users.id
             WHERE conversations.id IN (SELECT
@@ -57,7 +57,7 @@ class ChatSearchService
             AND
             conversations.deleted = 0)
         AND
-            user.name LIKE '%$searchText%'
+            users.name LIKE '%$searchText%' AND users.id <> $currentUser
         LIMIT $limit OFFSET $start
         ";
 

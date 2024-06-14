@@ -27,27 +27,41 @@ const useGetChats = () => {
     setOffset((prev) => prev + currentCount);
   }, []);
 
-  const fetchChats = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-    let payload: IGetChatsPayload = {
-      start: offset,
-      limit: limit,
-    };
-    setIsLoading(true);
-    getChats(payload)
-      .then((response) => {
-        dispatch(addChats(response.chats));
-        handlePagination(response.metaData.count);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [handlePagination, offset, isLoading]);
+  const fetchChats = useCallback(
+    (inputStart: number | null = null, inputLimit: number | null = null) => {
+      if (isLoading) {
+        return;
+      }
+      let payload: IGetChatsPayload;
+      console.log(inputStart, inputLimit);
+      if (inputLimit && inputStart !== null) {
+        payload = {
+          start: inputStart,
+          limit: inputLimit,
+        };
+      } else {
+        payload = {
+          start: offset,
+          limit: limit,
+        };
+      }
+
+      console.log(payload);
+      setIsLoading(true);
+      getChats(payload)
+        .then((response) => {
+          dispatch(addChats(response.chats));
+          handlePagination(response.metaData.count);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    },
+    [handlePagination, offset, isLoading]
+  );
 
   return {
     isLoading,

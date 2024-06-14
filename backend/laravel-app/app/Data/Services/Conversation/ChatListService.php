@@ -130,6 +130,10 @@ class ChatListService
     public function getConversationUsers($conversationIds)
     {
 
+        if (!$this->currentUser) {
+            $this->currentUser = $this->getLoggedUser();
+        }
+
         $conversationIdsString = implode(",", $conversationIds);
 
         $currentUser = $this->currentUser->id;
@@ -165,6 +169,9 @@ class ChatListService
 
     public function getConversationLastMessage($conversationIds)
     {
+        if (!$this->currentUser) {
+            $this->currentUser = $this->getLoggedUser();
+        }
 
         $conversationIdsString = implode(",", $conversationIds);
 

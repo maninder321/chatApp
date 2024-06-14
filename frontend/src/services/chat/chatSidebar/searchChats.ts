@@ -15,7 +15,7 @@ export interface ISearchChatsResponse {
 }
 
 async function searchChats(payload: ISearchChatsPayload) {
-  let response = await axiosAuth.post("/api/chat/searchChats", payload);
+  let response = await axiosAuth.post("/api/chat/search", payload);
   if (response.data.error) {
     throw Error(response.data.statusCode);
   }

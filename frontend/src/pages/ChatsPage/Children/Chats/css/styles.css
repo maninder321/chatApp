@@ -54,3 +54,10 @@
   border-radius: 10px;
   /* outline: 1px solid slategrey; */
 }
+
+.chatsLoader {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
