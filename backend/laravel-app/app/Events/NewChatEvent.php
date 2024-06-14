@@ -15,13 +15,15 @@ class NewChatEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     private $channelName;
+    private $payload;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($channelName)
+    public function __construct($channelName, $payload)
     {
         $this->channelName = $channelName;
+        $this->payload = $payload;
     }
 
     /**
@@ -42,5 +44,10 @@ class NewChatEvent implements ShouldBroadcast
     public function broadcastAs(): string
     {
         return 'new-chat';
+    }
+
+    public function broadcastWith()
+    {
+        return $this->payload;
     }
 }

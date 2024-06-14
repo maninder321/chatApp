@@ -17,7 +17,10 @@ use App\Data\Keys\ConversationMessage\ConversationMessageKeys;
 use App\Data\Repositories\Conversation\ConversationRepository;
 use App\Data\Repositories\ConversationMessage\ConversationMessageRepository;
 use App\Data\Repositories\Participant\ParticipantRepository;
+use App\Data\Repositories\User\UserRepository;
 use App\Data\Traits\CurrentLoggedUser;
+use App\Events\NewChatEvent;
+use App\Events\NewMessageEvent;
 use Illuminate\Support\Facades\DB;
 
 class CreateConversationService
@@ -134,6 +137,35 @@ class CreateConversationService
             );
         }
 
+        if ($chatAlreadyExists) {
+            if ($toUserId) {
+                $conversation = $this->conversatioinRepository->getById($conversationId);
+                $payload = [
+                    "chatId" => $conversationId,
+                    "messageId" => $conversation->id,
+                    "message" => $messageCreated->message_text,
+                    "direction" => "in",
+                    "createdAtGmt" => $conversation->created_at_gmt
+                ];
+
+                NewMessageEvent::dispatch("user-channel-" . $toUserId, $payload);
+            }
+        } else {
+            if ($toUserId) {
+
+                $payload = [
+                    "id" => $conversationId,
+                    "name" => $this->getLoggedUser()->name,
+                    "lastMessage" => $messageCreated->message_text,
+                    "timestamp" => $messageCreated->created_at_gmt,
+                    "unreadCount" => 0
+                ];
+
+                NewChatEvent::dispatch("user-channel-" . $toUserId, $payload);
+            }
+        }
+
+
         return APIResponse::success(
             message: "chat created",
             statusCode: CreateChatApiStatus::CHAT_CREATED,
@@ -153,6 +185,8 @@ class CreateConversationService
                 participants
             WHERE
                 participants.user_id IN($userOne, $userTwo)
+                AND
+                deleted = 0
             GROUP BY
                 participants.conversation_id
             HAVING

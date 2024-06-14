@@ -13,10 +13,9 @@ import getCurrentUser from "../../services/user/getCurrentUser";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
-  const { setupPusher } = usePusher();
+  const {} = usePusher();
 
   useEffect(() => {
-    // setupPusher();
     getCurrentUser()
       .then((response) => {
         dispatch(setCurrentUser(response));

@@ -5,19 +5,27 @@ import getConfig from "../services/user/getConfig";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addMessagesToTop } from "../redux/slices/chatMessagesSlice";
+import {
+  bindEvent,
+  setPusher,
+  subscribeChannel,
+  unbindEvent,
+  unsubscribeChannel,
+} from "../pusher/pusher-setup";
+import {
+  addChatToTop,
+  updateLastMessageDetails,
+} from "../redux/slices/chatSidebarSlice";
 
 const usePusher = () => {
-  // const chatId = useAppSelector((state) => state.chatSidebar.selectedChat);
   const { chatId } = useParams();
+  const chatIdRef = useRef(chatId);
+  const channelRef = useRef<Channel | null>(null);
   const dispatch = useAppDispatch();
-  const pusherRef = useRef<Channel | null>(null);
+  const channelNameRef = useRef<string>("");
 
-  const newMessageHandler = useCallback((data: any, chatId: string) => {
-    console.log(chatId);
-    console.log(data.chatId);
-    console.log(data.chatId == chatId);
-    if (data.chatId == chatId) {
-      console.log("adding message for chat id " + chatId);
+  const newMessageHandler = useCallback((data: any) => {
+    if (data.chatId == chatIdRef.current) {
       dispatch(
         addMessagesToTop({
           id: data.messageId,
@@ -28,52 +36,66 @@ const usePusher = () => {
         })
       );
     }
+    dispatch(
+      updateLastMessageDetails({
+        id: data.chatId,
+        message: data.message,
+        timestamp: data.createdAtGmt,
+      })
+    );
   }, []);
 
-  const handleSubscription = useCallback(
-    (chatId: string) => {
-      if (pusherRef.current) {
-        pusherRef.current.bind("new-chat", () => {
-          console.log("new chat");
-        });
+  const newChatHandler = useCallback((data: any) => {
+    dispatch(
+      addChatToTop({
+        id: data.id,
+        name: data.name,
+        lastMessage: data.lastMessage,
+        profileImgUrl: null,
+        unreadCount: 0,
+        timestamp: data.timestamp,
+      })
+    );
+  }, []);
 
-        pusherRef.current.bind("new-message", (data: any) => {
-          newMessageHandler(data, chatId);
-        });
-      }
-      return () => {
-        if (pusherRef.current) {
-          pusherRef.current.unbind("new-message");
-          pusherRef.current.unbind("new-chat");
-        }
-      };
-    },
-    [pusherRef.current]
-  );
+  useEffect(() => {
+    console.log("setting pusher");
+    setupPusher();
+    return () => {
+      console.log("clearing pusher");
+      clearPusher();
+    };
+  }, []);
 
   useEffect(() => {
     if (chatId) {
-      handleSubscription(chatId);
+      chatIdRef.current = chatId;
     }
   }, [chatId]);
 
   const setupPusher = useCallback(() => {
     getConfig()
       .then((response) => {
-        const pusher = new Pusher(response.pusherKey, {
-          cluster: response.pusherCluster,
-        });
-
-        const channel = pusher.subscribe(response.userPusherChannel);
-
-        pusherRef.current = channel;
+        setPusher(response.pusherKey, response.pusherCluster);
+        channelNameRef.current = response.userPusherChannel;
+        channelRef.current = subscribeChannel(response.userPusherChannel);
+        if (channelRef.current) {
+          bindEvent(channelRef.current, "new-message", newMessageHandler);
+          bindEvent(channelRef.current, "new-chat", newChatHandler);
+        }
       })
       .catch();
   }, []);
 
-  return {
-    setupPusher,
-  };
+  const clearPusher = useCallback(() => {
+    if (channelNameRef.current.length > 0 && channelRef.current) {
+      unbindEvent(channelRef.current, "new-message");
+      unbindEvent(channelRef.current, "new-chat");
+      unsubscribeChannel(channelNameRef.current);
+    }
+  }, []);
+
+  return {};
 };
 
 export default usePusher;

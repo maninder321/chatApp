@@ -25,6 +25,9 @@ export const chatSidebarSlice = createSlice({
       });
       state.chatList = chatList;
     },
+    addChatToTop(state, action) {
+      state.chatList = [action.payload, ...state.chatList];
+    },
     resetChats(state) {
       state.chatList = [];
     },
@@ -49,6 +52,24 @@ export const chatSidebarSlice = createSlice({
       });
       state.chatList = chatList;
     },
+    updateLastMessageDetails(state, action) {
+      let chatList: ChatItem[] = [];
+
+      chatList = state.chatList.map((value, index) => {
+        console.log("hi");
+        console.log(action);
+        if (value.id == action.payload.id) {
+          value.lastMessage = action.payload.message;
+          value.timestamp = action.payload.timestamp;
+        }
+        return value;
+      });
+
+      chatList.sort((a: ChatItem, b: ChatItem) => {
+        return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+      });
+      state.chatList = chatList;
+    },
   },
 });
 
@@ -58,6 +79,8 @@ export const {
   setSelectedChat,
   resetSelectedChat,
   updateChatMessageDetails,
+  updateLastMessageDetails,
+  addChatToTop,
 } = chatSidebarSlice.actions;
 
 export default chatSidebarSlice.reducer;
