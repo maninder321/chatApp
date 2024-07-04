@@ -1,0 +1,81 @@
+.createChatFormSearchDetails {
+  background-color: white;
+  height: 80px;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0px 1px 1px rgb(255 25 25 / 8%) inset,
+    0px 0px 8px rgba(137, 137, 137, 0.5);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.createChatFormSearchDetails .userAvatar {
+  margin-left: 12px;
+}
+
+.createChatFormSearchDetails .userAvatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.searchItemDetails {
+  /* background-color: red; */
+  overflow: hidden;
+  margin: 0px 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  height: 65%;
+  justify-content: space-between;
+}
+
+.searchItemDetails .searchItemTitle {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.searchItemDetails .searchItemMsg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+  /* width: 220px; */
+}
+
+.createChatForm {
+  width: 90%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.createChatMainForm {
+  display: flex;
+}
+
+.createChatMainForm .sendButton {
+  margin-left: 10px;
+  font-size: 50px;
+  color: #57039a;
+  /* background-color: red; */
+  width: 50px;
+  text-align: center;
+  border-radius: 50%;
+  height: 50px;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.createChatMainForm .sendButtonLoader {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}

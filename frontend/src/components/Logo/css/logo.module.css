@@ -1,0 +1,31 @@
+.logoWrapper {
+  /* padding: 10px; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoTitle {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  /* color: #57039a; */
+  color: white;
+  width: 100%;
+
+  /* background-color: rgb(235, 212, 253); */
+  background-color: #57039a;
+  padding: 10px 35px;
+  /* border-radius: 40px; */
+  /* box-shadow: 0px 0px 5px 5px rgb(168, 168, 168); */
+}
+
+.logoTitle span {
+  margin-right: 20px;
+}
+
+.logoIcon {
+  font-size: 200px;
+  color: #57039a;
+}

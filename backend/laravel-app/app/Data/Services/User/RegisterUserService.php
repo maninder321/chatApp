@@ -36,8 +36,7 @@ class RegisterUserService
     public function registerUser($data)
     {
         $userName = $data["userName"];
-        $firstName = $data["firstName"];
-        $lastName = $data["lastName"];
+        $name = $data["name"];
         $email = $data["email"];
         $password = $data["password"];
 
@@ -63,7 +62,7 @@ class RegisterUserService
 
         // Prepare payload for user creation
         $payload = [];
-        $payload[UserKeys::NAME] = $firstName . " " . $lastName;
+        $payload[UserKeys::NAME] = $name;
         $payload[UserKeys::EMAIL] = $email;
         $payload[UserKeys::PASSWORD] = Hash::make($password);
         $payload[UserKeys::USERNAME] = $userName;

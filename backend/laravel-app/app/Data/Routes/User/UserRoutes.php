@@ -22,6 +22,14 @@ class UserRoutes
         Route::post("login", [UserAuthController::class, "loginHandler"]);
     }
 
+    public static function authProtectedRoutes()
+    {
+        Route::post("checkTokenValid", [UserAuthController::class, "checkTokenValidHanlder"]);
+        Route::post("getConfig", [UserAuthController::class, "getConfigHandler"]);
+        Route::post("getCurrentUser", [UserAuthController::class, "getCurrentUserHandler"]);
+        Route::post("logout", [UserAuthController::class, "logoutHandler"]);
+    }
+
     public static function verificationRoutes()
     {
         Route::get("verifyToken", [UserAuthController::class, "verifyEmailTokenHandler"]);

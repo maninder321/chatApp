@@ -16,6 +16,7 @@ final class UserKeys
     const EMAIL = "email";
     const USERNAME = "username";
     const IS_EMAIL_VERIFIED = "is_email_verified";
+    const IS_USER_ONLINE = "is_user_online";
     const EMAIL_VERIFIED_AT = "email_verified_at";
     const EMAIL_VERIFICATION_TOKEN = "email_verification_token";
     const FORGOT_PASSWORD_TOKEN = "forgot_password_token";

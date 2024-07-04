@@ -220,6 +220,9 @@ class UserRepository
             case UserKeys::IS_EMAIL_VERIFIED:
                 $model->is_email_verified = $value;
                 break;
+            case UserKeys::IS_USER_ONLINE:
+                $model->is_user_online = $value;
+                break;
             case UserKeys::EMAIL_VERIFIED_AT:
                 $model->email_verified_at = $value;
                 break;

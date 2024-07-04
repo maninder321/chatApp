@@ -10,14 +10,18 @@
 namespace App\Http\Controllers;
 
 use App\Data\Helpers\APIResponse;
+use App\Data\Services\Auth\AuthService;
 use App\Data\Services\User\LoginUserService;
 use App\Data\Services\User\RegisterUserService;
 use App\Data\Services\User\UserVerificationService;
+use App\Data\Traits\CurrentLoggedUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserAuthController extends Controller
 {
+    use CurrentLoggedUser;
 
     private $registerUserService = null;
     private $loginUserService = null;
@@ -68,8 +72,7 @@ class UserAuthController extends Controller
 
         // Validate request data
         $validator = Validator::make($request->input(), [
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|string|max:255',
             'userName' => 'required|string',
@@ -114,5 +117,48 @@ class UserAuthController extends Controller
         }
 
         return "User not Verified";
+    }
+
+    public function checkTokenValidHanlder(Request $request)
+    {
+        return (new AuthService())->checkValidTokenHandler();
+    }
+
+    public function getConfigHandler(Request $request)
+    {
+        $response = [
+            "pusherKey" => config("broadcasting.connections.pusher.key"),
+            "pusherCluster" => config("broadcasting.connections.pusher.options.cluster"),
+            "userPusherChannel" => "user-channel-" . $this->getLoggedUser()->id
+        ];
+
+        return APIResponse::success(message: "fetched config details", data: $response);
+    }
+
+    public function getCurrentUserHandler(Request $request)
+    {
+        $user = $this->getLoggedUser();
+
+        $response = [
+            "id" => $user->id,
+            "name" => $user->name
+        ];
+
+        return APIResponse::success(message: "fetched current user details", data: $response);
+    }
+
+    public function logoutHandler(Request $request)
+    {
+        $user = $this->getLoggedUser();
+
+        $sql = "
+            Update oauth_access_tokens SET revoked = 1 WHERE user_id = ?
+            ";
+
+        $updated = DB::statement($sql, [$user->id]);
+
+        return APIResponse::success(message: "user logged out", data: [
+            "loggedOut" => $updated
+        ]);
     }
 }

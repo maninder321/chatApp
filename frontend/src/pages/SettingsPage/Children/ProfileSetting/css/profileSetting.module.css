@@ -1,0 +1,117 @@
+.profileSettingWrapper {
+  width: 100%;
+  height: 100vh;
+}
+
+.profileHeader {
+  background-color: white;
+  height: 80px;
+  color: rgb(13, 13, 13);
+  border-bottom: 1px solid rgb(228, 228, 228);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.header {
+  font-size: 23px;
+}
+
+.headerCaption {
+  font-size: 15px;
+  font-weight: normal;
+  color: rgb(78, 78, 78);
+}
+
+.profileBody {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* background-color: red; */
+  height: calc(100% - 80px);
+  /* justify-content: center; */
+  /* border: 1px solid rgb(228, 228, 228); */
+}
+
+.profileImageSection {
+  /* height: 300px; */
+  margin-top: 50px;
+  /* background-color: red; */
+  display: flex;
+  width: 80%;
+  /* background-color: red; */
+  flex-direction: row;
+  /* background-color: red; */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.profileImageSection img {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  border: 2px solid #57039a;
+}
+
+.profileImageChangeButton {
+  /* margin-left: 20px; */
+  font-size: 15px;
+  background-color: #57039a;
+  padding: 10px 10px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  cursor: pointer;
+  margin-left: 15px;
+  /* position: absolute; */
+  right: 0;
+}
+
+.profileImageChangeButton span {
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  /* background-color: red//; */
+}
+
+.profileSettingForm {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-top: 50px;
+}
+
+.profileSettingForm input {
+  height: 60px;
+  margin-bottom: 20px;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.profileInput {
+  width: 100%;
+}
+
+.inputTitle {
+  font-size: 17px;
+  font-weight: bold;
+  margin-left: 2px;
+  margin-bottom: 7px;
+  display: inline-block;
+}
+
+.profileUpdateButton {
+  margin-top: 30px;
+  cursor: not-allowed !important;
+  height: 60px;
+  color: #57039a !important;
+  font-size: 17px !important;
+  font-weight: bold !important;
+}

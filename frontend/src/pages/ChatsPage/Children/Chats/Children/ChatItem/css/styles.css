@@ -1,0 +1,117 @@
+.chatItemWrapper {
+  background-color: white;
+  height: 80px;
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 15px;
+  box-shadow: 0px 1px 1px rgb(255 25 25 / 8%) inset,
+    0px 0px 8px rgba(137, 137, 137, 0.5);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chatItemWrapper .userAvatar {
+  margin-left: 12px;
+}
+
+.chatItemWrapper .userAvatar .initial {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.chatItemDetails {
+  /* background-color: red; */
+  overflow: hidden;
+  margin: 0px 10px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+  height: 65%;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.chatItemDetails .chatItemTitle {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.chatItemDetails .chatItemMsg {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+  /* width: 220px; */
+}
+
+.chatExtraDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-right: 12px;
+  height: 65%;
+}
+
+.chatExtraDetails .chatTimestamp {
+  font-size: 15px;
+  color: rgb(91, 91, 91);
+}
+
+.chatExtraDetails .unreadCount {
+  background-color: #57039a;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatItemWrapper:hover {
+  background-color: #57039a;
+  color: white;
+}
+
+.chatItemWrapper:hover .chatItemMsg,
+.chatItemWrapper:hover .chatTimestamp {
+  color: white;
+}
+
+.chatItemWrapper:hover .unreadCount {
+  background-color: white;
+  color: #57039a;
+}
+
+.activeChatItemWrapper {
+  background-color: #57039a !important;
+  color: white !important;
+}
+
+.activeChatItemMsg {
+  color: white !important;
+}
+
+.activeChatTimestamp {
+  color: white !important;
+}
+
+.activeUnreadCount {
+  background-color: #57039a !important;
+  color: white !important;
+}
+
+.chatDetailsLoader {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
