@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../../../redux/hooks";
 import { addMessagesToTop } from "../../../../../redux/slices/chatMessagesSlice";
 import useGetChatById from "../../Chats/hooks/useGetChatById";
 import { updateChatMessageDetails } from "../../../../../redux/slices/chatSidebarSlice";
+import { toast } from "react-toastify";
 
 const useSendMessage = (successCallback?: Function) => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,10 @@ const useSendMessage = (successCallback?: Function) => {
 
   const sendChatMessage = useCallback(
     (payload: { chatId: number; message: string }) => {
+      if (payload.message.length == 0) {
+        toast.warn("Message can't be empty");
+        return;
+      }
       let sendChatPayload: ISendMessagePayload = {
         chatId: payload.chatId,
         message: payload.message,

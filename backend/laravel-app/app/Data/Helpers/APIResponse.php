@@ -14,7 +14,7 @@ class APIResponse
     public static function error($message, $data = null, $statusCode = null, $httpCode = 400)
     {
         return response()->json([
-            'error' => false,
+            'error' => true,
             'message' => $message,
             'data' => $data,
             'statusCode' => $statusCode

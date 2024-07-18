@@ -5,6 +5,7 @@ import ChatsPage from "../../pages/ChatsPage";
 import SettingsPage from "../../pages/SettingsPage";
 import { useAppSelector } from "../../redux/hooks";
 import Notification from "../Notification";
+import { ToastContainer } from "react-toastify";
 
 function ChatApp() {
   const showNotification = useAppSelector(
@@ -13,6 +14,18 @@ function ChatApp() {
   return (
     <>
       {showNotification && <Notification />}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Routes>
         <Route element={<ProtectedRoutes />}>
           <Route index path="/" element={<ChatsPage />} />

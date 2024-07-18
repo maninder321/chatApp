@@ -57,7 +57,7 @@ class CreateConversationService
                 "id" => $singleResult->id,
                 "name" => $singleResult->name,
                 "userName" => $singleResult->username,
-                "isActive" => true
+                "isActive" => $singleResult->is_user_online
             ];
         }
 
