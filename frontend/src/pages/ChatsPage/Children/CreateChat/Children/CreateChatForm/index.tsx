@@ -3,6 +3,7 @@ import { useAppSelector } from "../../../../../../redux/hooks";
 import useStartChat from "../../hooks/useStartChat";
 import "./css/styles.css";
 import SpinnerLoader from "../../../../../../components/SpinnerLoader";
+import { NameInitialsAvatar } from "react-name-initials-avatar";
 
 function CreateChatForm() {
   const user = useAppSelector((state) => state.createChat.selectedUser);
@@ -13,7 +14,17 @@ function CreateChatForm() {
     <div className="createChatForm">
       <div className="createChatFormSearchDetails">
         <div className="userAvatar">
-          <img src="https://picsum.photos/id/237/200/300" alt="" />
+          <div className="initial">
+            <NameInitialsAvatar
+              name={user?.name.toUpperCase() || "No Name"}
+              size="60px"
+              bgColor={"#EBD4FD"}
+              textColor={"#57039a"}
+              borderColor={"#EBD4FD"}
+              textSize="23px"
+            />
+          </div>
+          {/* <img src="https://picsum.photos/id/237/200/300" alt="" /> */}
         </div>
         <div className="searchItemDetails">
           <div className="searchItemTitle">

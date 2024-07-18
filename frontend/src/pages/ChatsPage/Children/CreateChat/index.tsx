@@ -52,7 +52,7 @@ function CreateChat({ show, onHide }: { show: boolean; onHide: any }) {
           <div className="createChatBody">
             {showList && (
               <>
-                <SearchBar className="my-0" />
+                {/* <SearchBar className="my-0" /> */}
                 <div className="searchItems">
                   {isLoading && (
                     <div className="createChatLoader">

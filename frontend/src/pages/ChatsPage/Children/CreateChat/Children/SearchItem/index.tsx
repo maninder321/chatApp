@@ -1,3 +1,4 @@
+import { NameInitialsAvatar } from "react-name-initials-avatar";
 import "./css/styles.css";
 
 function SearchItem(props: {
@@ -14,7 +15,17 @@ function SearchItem(props: {
       onClick={props.onClickHandle}
     >
       <div className="userAvatar">
-        <img src="https://picsum.photos/id/237/200/300" alt="" />
+        <div className="initial">
+          <NameInitialsAvatar
+            name={props?.name.toUpperCase() || "No Name"}
+            size="60px"
+            bgColor={"#EBD4FD"}
+            textColor={"#57039a"}
+            borderColor={"#EBD4FD"}
+            textSize="23px"
+          />
+        </div>
+        {/* <img src="https://picsum.photos/id/237/200/300" alt="" /> */}
       </div>
       <div className="searchItemDetails">
         <div className="searchItemTitle">
